@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// Static sites on GitLab Pages are served from /<project>/. The deployment
+// GitHub Pages project sites are served from /<repo-name>/. The deployment
 // workflow sets BASE_PATH. Local builds default to "/" so that
 // `npm run preview` works out of the box.
 const base = process.env.BASE_PATH ?? '/'

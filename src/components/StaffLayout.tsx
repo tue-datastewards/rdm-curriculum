@@ -2,6 +2,7 @@ import { Link, NavLink, Outlet } from 'react-router-dom'
 import { curriculum } from '../data/curriculum'
 import { asset } from '../lib/assets'
 import { cn } from '../lib/cn'
+import { useNoindex } from '../lib/useNoindex'
 
 const navClass = ({ isActive }: { isActive: boolean }) =>
   cn(
@@ -10,6 +11,8 @@ const navClass = ({ isActive }: { isActive: boolean }) =>
   )
 
 export function StaffLayout() {
+  useNoindex()
+
   return (
     <div className="flex min-h-screen flex-col bg-paper text-ink">
       <a

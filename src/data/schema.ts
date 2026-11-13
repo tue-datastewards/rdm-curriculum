@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 /**
  * The YAML files in /data are the single source of truth. This schema is the
- * contract between the content, the site, the editor (Sveltia CMS) and the
+ * contract between the content, the site, the editor (Pages CMS) and the
  * validation script (`npm run check`).
  */
 

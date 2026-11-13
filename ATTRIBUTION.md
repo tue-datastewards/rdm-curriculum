@@ -1,5 +1,15 @@
 # Attribution
 
+## Public use permission
+
+This course site is published publicly. Public use of the TU/e logo and the
+Freepik-derived brand-kit icons on this site is authorised by the TU/e brand
+owner. The written confirmation is held with the project records; record its date
+and reference here.
+
+The permission applies to this site. It does not license the assets for other
+projects or for redistribution elsewhere.
+
 ## Design system
 
 This site uses the **“This is RDM” brand kit**, version 1.0.0, maintained by the

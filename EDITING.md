@@ -1,18 +1,31 @@
 # Editing the RDM curriculum
 
 This guide is for curriculum editors. You do not need to install anything or use
-git. You edit through a web form, and the course site rebuilds automatically.
+git. You edit through a web form, and the public course site rebuilds
+automatically.
 
 ## Sign in
 
-1. Open `https://<internal-pages-url>/admin/`.
-2. Choose **Sign in with GitLab** and use your TU/e GitLab account.
-3. The first time, GitLab asks you to authorise the editor. Approve it.
-4. You need the **Developer** role (or higher) on the project. Ask the
-   maintainer if you get a permission error.
+1. Go to <https://app.pagescms.org>.
+2. Choose **Sign in with GitHub** (create a free GitHub account if you do not
+   have one).
+3. The first time, install the Pages CMS GitHub App for this repository when
+   prompted.
+4. Ask the maintainer for **write** access to the repository, and accept the
+   invitation.
 
 You will see three sections: **Course**, **Course outcomes (CILOs)** and
-**Modules**. Use the preview icon in the editor to see the page you are editing.
+**Modules**. Saving commits your change to `main`; the site updates in about a
+minute.
+
+## What the pieces mean
+
+| Piece | Meaning |
+|---|---|
+| **CILO** | A course intended learning outcome: what a researcher can do after the whole curriculum. There are five, `C1`–`C5`. |
+| **MILO** | A module intended learning outcome: what one module contributes. IDs look like `M01.A`. |
+| **Link** | Each MILO ticks one or more CILOs. This is the association shown in the staff matrix. |
+| **Components** | Content, teaching-learning strategies, resources, assessment. |
 
 ## The two kinds of text
 
@@ -40,7 +53,7 @@ If the learner fields are empty, the learner page falls back to the official tex
 1. Open **Modules** and choose a module.
 2. Edit **Learner summary**, **Duration**, **Level** and **Learning path**.
 3. Leave **Published to learners** off while the module is unfinished.
-4. Expand **Module intended learning outcomes**.
+4. Expand **Module intended learning outcomes (MILOs)**.
 5. Open a MILO and fill in:
    - **Official outcome statement** (required)
    - **Learner section title** and **Learner outcome statement**
@@ -52,8 +65,6 @@ If the learner fields are empty, the learner page falls back to the official tex
    - **Published to learners** — only when the section is ready
 6. Press **Save**.
 
-The live site updates in about a minute. Refresh to see it.
-
 ### What learners do not see
 
 - Teaching → Teacher's activity
@@ -64,6 +75,11 @@ The live site updates in about a minute. Refresh to see it.
 
 Empty blocks are hidden automatically: a section without resources simply has no
 resources block.
+
+**Important:** the repository and the site are public. “Internal” notes and
+teacher activities are visible in the repository and in the staff view, even
+though they are not shown on learner pages. Do not put confidential information
+in them.
 
 ### Formatting
 
@@ -115,6 +131,7 @@ use it.
 
 - If the site does not update, the new data probably failed validation. Nothing
   is lost: the previous version stays online.
+- Check the **Actions** tab of the repository for the failed deployment.
 - Common causes: a duplicate ID, a MILO ID that does not start with its module, or
   a published module with no summary, duration or published section.
 - Ask the maintainer to run `npm run check` for the exact message. Every change is
@@ -124,5 +141,5 @@ use it.
 
 ## Who can edit
 
-Editors need a TU/e GitLab account and the Developer role on the project.
-Changes are committed under your name, so the history shows who changed what.
+Editors need a GitHub account and **write** access to the repository. Changes are
+committed under your name, so the history shows who changed what.

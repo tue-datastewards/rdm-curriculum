@@ -1,16 +1,18 @@
 # TU/e RDM Curriculum
 
-A self-paced course site for researchers and PhD candidates, built around the
-TU/e Research Data Management curriculum. The same YAML data also powers a staff
-alignment view, so what learners read and what the curriculum team reviews can
-never drift apart.
+A public, self-paced course site for researchers and PhD candidates, built around
+the TU/e Research Data Management curriculum. The same YAML data also powers a
+staff alignment view, so what learners read and what the curriculum team reviews
+cannot drift apart.
 
 The design system is the **“This is RDM”** brand kit from the TU/e Data Stewards
-Team. The project is intended for **internal TU/e hosting**; see
-[`ATTRIBUTION.md`](ATTRIBUTION.md) and [`LICENSES.md`](LICENSES.md) before
-publishing anything outside the university.
+Team, used with permission. See [`ATTRIBUTION.md`](ATTRIBUTION.md) and
+[`LICENSES.md`](LICENSES.md).
 
-## Two views, one data source
+The repository is public. That includes the `word/` source templates and internal
+editorial notes; see [Visibility](#visibility).
+
+## Views
 
 | Route | Audience | Content |
 |---|---|---|
@@ -20,12 +22,11 @@ publishing anything outside the university.
 | `/about` | Learners | Audience, progress, booklet, credits |
 | `/curriculum` | Staff | Alignment matrix, content status, coverage, CSV export |
 | `/curriculum/cilos/:id` | Staff | Every MILO addressing a course outcome, published or not |
-| `/admin/` | Editors | Sveltia CMS form editor (GitLab sign-in) |
 
 Learner views show **published content only**, use learner titles and statements
 where editors provided them, and never show teacher activities, internal notes or
-editorial status. The staff view is deliberately not in the learner navigation
-and the whole site is marked `noindex`.
+editorial status. The staff view is unlinked from the learner navigation and
+marked `noindex`, but it is publicly reachable.
 
 ## Quick start
 
@@ -36,9 +37,6 @@ npm run check      # validate data (errors block, warnings print)
 npm run build      # validate + typecheck + static build into dist/
 npm run preview    # preview the production build
 ```
-
-`npm run dev` and `npm run build` first copy the Sveltia CMS bundle into
-`public/admin/` (`npm run vendor:cms`), so the editor is available at `/admin/`.
 
 ## Data model
 
@@ -137,69 +135,64 @@ the booklet QR, a filtered 10-symbol icon sprite, and a recoloured four-row
 wallpaper tile for the hero. The wallpaper is the only modified asset: its fill
 was changed from `#6E4061` to `#4A133C` for use on the purple band.
 
-Brand constraints to keep in mind:
-
-- The kit is an **internal TU/e** resource, not an official brand guideline.
-- The TU/e logo is a registered trademark and is **internal use only**.
-- The Freepik-derived icons are **internal use only** and excluded from the
-  kit's CC BY-NC-SA licence.
-- Avenir Next is commercial and not distributed; the site uses it when
-  installed and falls back to Avenir/Helvetica Neue/Arial.
+Public use of the logo and icons is authorised; see
+[`ATTRIBUTION.md`](ATTRIBUTION.md). Keep the written confirmation with the
+project records. Avenir Next is commercial and not distributed; the site uses it
+when installed and falls back to Avenir/Helvetica Neue/Arial.
 
 ## Editing content
 
-Editors use Sveltia CMS at `/admin/` and sign in with their **TU/e GitLab**
-account. The editor commits directly to the default branch, which triggers the
-Pages pipeline.
+Editors use [Pages CMS](https://app.pagescms.org) with their GitHub account; the
+repository's [`.pages.yml`](.pages.yml) defines the forms. Saving commits to
+`main`, which triggers the Pages deployment.
 
 Setup, once per project:
 
-1. Create the internal GitLab project and push this repository.
-2. Register an OAuth application on the GitLab instance:
-   - Redirect URI: `https://<pages-url>/admin/`
-   - Confidential: **off** (PKCE)
-   - Scope: `api`
-3. Fill in `public/admin/config.yml`:
-   - `backend.repo` → `<group>/<project>`
-   - `backend.base_url` / `api_root` → your GitLab host and `/api/v4`
-   - `backend.app_id` → the OAuth client ID
-4. Give editors the **Developer** role (or higher) on the project.
+1. Add editors as collaborators with **write** access to the repository.
+2. Sign in at <https://app.pagescms.org> with GitHub; install the Pages CMS GitHub
+   App for this repository when prompted.
+3. Open the repository and confirm the **Course**, **Course outcomes** and
+   **Modules** sections appear.
+4. Add the remaining editors; each signs in with their own GitHub account.
 
 `EDITING.md` is the one-page guide for non-technical editors.
 
-If the admin bundle is not generated (for example in a bare checkout), run
-`npm run vendor:cms`.
-
 ## Deployment
 
-The site is a static build and deploys with GitLab Pages:
+The site is a static build deployed with GitHub Actions:
 
-```bash
-npm ci
-npm run build
-# artifacts: dist/ copied to public/ by .gitlab-ci.yml
-```
+1. Create a public repository and push this project to `main`.
+2. In **Settings → Pages**, set **Source** to **GitHub Actions**.
+3. The workflow in `.github/workflows/deploy.yml` builds and deploys on every
+   push.
+4. The site is published at `https://<owner>.github.io/<repo>/`.
 
-- `.gitlab-ci.yml` runs validation, builds, and publishes `public/` on the
-  default branch.
-- `BASE_PATH` defaults to `/$CI_PROJECT_NAME/`; override it in
-  **Settings → CI/CD → Variables** if the project is nested in a subgroup or
-  uses a custom domain.
-- Set the Pages **access level** in the project settings. “Only project
-  members” is the safest default for internal branding; “Everyone with access”
-  is appropriate for all TU/e users.
-- `scripts/postbuild.mjs` writes `404.html` for client-side routes and
-  `.nojekyll` (harmless outside GitHub Pages).
+`BASE_PATH` is derived from the repository name. Override it in the workflow if:
+
+- the site is an `<owner>.github.io` user/organization site, or
+- a custom domain serves the site from the root (`BASE_PATH: /`).
+
+`scripts/postbuild.mjs` writes `404.html` for client-side routes and `.nojekyll`
+so GitHub Pages does not run Jekyll over the build.
+
+## Visibility
+
+The repository is public, and the published site is public. Two consequences:
+
+- `/curriculum` is reachable by anyone who knows the URL. It is `noindex` and
+  unlinked, but it is not access-controlled.
+- The `word/` templates and editorial notes in `data/` are readable in the
+  repository. Remove or relocate anything that should not be public **before**
+  the first push; git history is not removed by deleting files later.
 
 ## Project structure
 
 ```
 data/                      curriculum YAML (single source of truth)
-public/admin/              Sveltia CMS entry point + config (bundle generated)
 public/brand/              vendored brand assets
+public/robots.txt          public crawler policy
 scripts/check.ts           validation CLI
 scripts/vendor-brand.mjs   copies tokens/assets from the brand kit
-scripts/vendor-cms.mjs     copies the Sveltia bundle
 src/components/            layout, search, icons, progress
 src/pages/                 learner views
 src/staff/                 alignment matrix and CILO detail

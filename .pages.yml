@@ -1,0 +1,255 @@
+# Pages CMS configuration — the editing layer for the YAML files in /data.
+# Editors sign in at https://app.pagescms.org with their GitHub account.
+# This file is not used by the site build; it only defines the editor UI.
+
+content:
+  - name: course
+    label: Course
+    type: file
+    path: data/course.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Course title
+        type: string
+        required: true
+      - name: subtitle
+        label: Subtitle
+        type: string
+      - name: tagline
+        label: Homepage headline
+        type: string
+        required: true
+        description: The large sentence on the homepage, for example “Learn to manage research data well”.
+      - name: audience
+        label: Audience
+        type: string
+        description: Shown on the homepage and the About page.
+      - name: duration
+        label: Course duration
+        type: string
+        description: For example “About 45 minutes · self-paced”.
+      - name: contact
+        label: Contact email
+        type: string
+      - name: version
+        label: Version / academic year
+        type: string
+        required: true
+        description: Shown in the site header and footer.
+      - name: description
+        label: Description
+        type: text
+        required: true
+
+  - name: cilos
+    label: Course outcomes (CILOs)
+    type: collection
+    path: data/cilos
+    format: yaml
+    filename: "{primary}.yml"
+    operations:
+      delete: false
+    view:
+      primary: id
+      fields: [id, title, statement]
+      sort: [id]
+      search: [id, title, statement]
+    fields:
+      - name: id
+        label: ID
+        type: string
+        required: true
+        pattern:
+          regex: "^C\\d{1,2}$"
+          message: Use C followed by a number, for example C1.
+        description: Stable identifier used in links and in MILO references. Do not rename it once it is in use.
+      - name: title
+        label: Short title
+        type: string
+        required: true
+        options:
+          maxlength: 80
+      - name: statement
+        label: Official outcome statement
+        type: text
+        required: true
+
+  - name: modules
+    label: Modules
+    type: collection
+    path: data/modules
+    format: yaml
+    filename: "{primary}.yml"
+    view:
+      primary: id
+      fields: [id, title, learningPath]
+      sort: [id]
+      search: [id, title]
+    fields:
+      - name: id
+        label: Module ID
+        type: string
+        required: true
+        pattern:
+          regex: "^M\\d{2}$"
+          message: Use M followed by two digits, for example M02.
+        description: Also sets the MILO prefix, e.g. M02.A. The file is stored as <id>.yml.
+      - name: title
+        label: Module title
+        type: string
+        required: true
+      - name: summary
+        label: Learner summary
+        type: text
+        required: true
+        description: One or two sentences shown on module cards and at the top of the module.
+      - name: description
+        label: Full description (staff)
+        type: text
+      - name: duration
+        label: Duration
+        type: string
+        required: true
+        description: "For example: 45 min."
+      - name: level
+        label: Level
+        type: select
+        required: true
+        options:
+          values:
+            - name: introductory
+              label: Introductory
+            - name: intermediate
+              label: Intermediate
+            - name: advanced
+              label: Advanced
+      - name: learningPath
+        label: Learning path
+        type: select
+        required: true
+        options:
+          values:
+            - name: core
+              label: Core track (mandatory)
+            - name: elective
+              label: Elective
+            - name: all
+              label: All learning paths
+      - name: prerequisites
+        label: Pre-requisites
+        type: text
+        description: Leave empty if there are none.
+      - name: published
+        label: Published to learners
+        type: boolean
+        default: false
+        description: Leave off while the module is being written.
+
+      - name: milos
+        label: Module intended learning outcomes (MILOs)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.id} — {fields.learnerTitle}"
+        fields:
+          - name: id
+            label: MILO ID
+            type: string
+            required: true
+            pattern:
+              regex: "^M\\d{2}\\.[A-Z]$"
+              message: Use the module ID, a dot and a capital letter, e.g. M02.A.
+          - name: statement
+            label: Official outcome statement (staff)
+            type: text
+            required: true
+          - name: learnerTitle
+            label: Learner section title
+            type: string
+            description: Friendly heading used on the learner page, e.g. “Why data management matters”.
+          - name: learnerStatement
+            label: Learner outcome statement
+            type: text
+            description: Second-person version of the outcome. Falls back to the official statement.
+          - name: phase
+            label: Phase
+            type: select
+            required: true
+            options:
+              values:
+                - name: preparatory
+                  label: Preparatory work
+                - name: in-session
+                  label: In-session work
+          - name: status
+            label: Editorial status
+            type: select
+            required: true
+            options:
+              values:
+                - name: complete
+                  label: Complete
+                - name: migrated
+                  label: Migrated — needs review
+                - name: draft
+                  label: Draft
+          - name: published
+            label: Published to learners
+            type: boolean
+            default: false
+            description: Only published MILOs appear on the course site and in search.
+          - name: cilos
+            label: Course outcomes addressed
+            type: reference
+            required: true
+            options:
+              collection: cilos
+              multiple: true
+              min: 1
+              search: "id,title,statement"
+              value: "{fields.id}"
+              label: "{fields.id} · {fields.title}"
+          - name: content
+            label: Content / essential concepts
+            type: text
+            description: Markdown is supported. Start bullets with "- ".
+          - name: teaching
+            label: Teaching-learning strategies
+            type: object
+            fields:
+              - name: teacher
+                label: Teacher's activity (staff)
+                type: text
+                description: Markdown is supported. Never shown to learners.
+              - name: learner
+                label: Learner's activity
+                type: text
+                description: Markdown is supported. Shown as “Your task”.
+          - name: resources
+            label: Resources
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{fields.label}"
+            fields:
+              - name: label
+                type: string
+                required: true
+              - name: url
+                label: URL
+                type: string
+                description: Optional. Must start with http:// or https://.
+              - name: note
+                label: Note
+                type: string
+          - name: assessment
+            label: Assessment
+            type: text
+            description: Markdown is supported. Shown as “Check your understanding”.
+          - name: notes
+            label: Internal note (staff)
+            type: text
+            description: Shown in the staff view, never to learners.
