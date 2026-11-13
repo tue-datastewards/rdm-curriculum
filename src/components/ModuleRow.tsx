@@ -7,11 +7,9 @@ import { ProgressBar } from './ProgressBar'
 
 export function ModuleRow({
   module,
-  index,
   showPath = true,
 }: {
   module: Module
-  index: number
   showPath?: boolean
 }) {
   const progress = useProgress()
@@ -25,7 +23,7 @@ export function ModuleRow({
       className="group -mx-3 grid gap-4 border-t border-rule px-3 py-8 transition hover:bg-wash sm:grid-cols-[4rem_minmax(0,1fr)_13rem] sm:gap-8"
     >
       <div className="rdm-display text-brand transition group-hover:text-brand-deep">
-        {moduleNumber(index)}
+        {moduleNumber(module.id)}
       </div>
 
       <div className="min-w-0">

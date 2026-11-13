@@ -12,6 +12,8 @@ export const pathLabel: Record<LearningPath, string> = {
   all: 'All learning paths',
 }
 
-export function moduleNumber(index: number): string {
-  return String(index + 1).padStart(2, '0')
+/** Official curriculum number from the module ID: M06 → 06. */
+export function moduleNumber(moduleId: string): string {
+  const digits = moduleId.replace(/\D/g, '')
+  return (digits || '0').padStart(2, '0')
 }

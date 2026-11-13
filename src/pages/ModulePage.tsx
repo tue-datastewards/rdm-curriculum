@@ -168,7 +168,6 @@ export function ModulePage() {
   const sections = publishedMilos(module)
   const sectionIds = sections.map((milo) => milo.id)
   const status = moduleProgress(progress, sectionIds)
-  const index = publishedModules(curriculum).findIndex((item) => item.id === module.id)
   const { previous, next } = moduleNeighbours(curriculum, module.id)
 
   return (
@@ -182,7 +181,7 @@ export function ModulePage() {
 
         <header className="mt-5 border-b border-rule pb-8">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <span className="rdm-label text-brand">Module {moduleNumber(index)}</span>
+            <span className="rdm-label text-brand">Module {moduleNumber(module.id)}</span>
             <span className="rdm-label text-muted">{pathLabel[module.learningPath]}</span>
             <span className="rdm-label text-muted">{levelLabel[module.level]}</span>
             <span className="rdm-label text-muted">{module.duration}</span>

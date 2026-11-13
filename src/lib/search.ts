@@ -1,5 +1,6 @@
 import { curriculum } from '../data/curriculum'
 import { publishedMilos, publishedModules } from '../data/derive'
+import { moduleNumber } from './labels'
 
 export type SearchKind = 'Module' | 'Section' | 'Resource'
 
@@ -27,9 +28,7 @@ function getIndex(): SearchHit[] {
 
   index = []
   for (const module of publishedModules(curriculum)) {
-    const number = String(
-      publishedModules(curriculum).findIndex((item) => item.id === module.id) + 1,
-    ).padStart(2, '0')
+    const number = moduleNumber(module.id)
 
     index.push({
       id: `module:${module.id}`,

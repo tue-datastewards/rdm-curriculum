@@ -29,8 +29,8 @@ export function ModulesPage() {
         </div>
       ) : (
         <div className="mt-10 border-b border-rule">
-          {modules.map((module, index) => (
-            <ModuleRow key={module.id} module={module} index={index} />
+          {modules.map((module) => (
+            <ModuleRow key={module.id} module={module} />
           ))}
         </div>
       )}

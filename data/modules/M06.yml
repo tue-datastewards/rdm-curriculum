@@ -1,0 +1,265 @@
+id: M06
+title: From FAIR to Open
+summary: >-
+  FAIR data is not automatically open. Learn how to decide what can be shared,
+  where to publish it, how others may reuse it, and how to connect your outputs
+  so they are discoverable.
+description: >-
+  Making your data FAIR is important, but it does not mean that it is open. This
+  module takes research outputs from FAIR to openly shared: what can be opened,
+  where to share it, how others may reuse it, how to prepare outputs for
+  secondary use, and how to connect outputs for discovery and impact.
+duration: 90 min
+level: intermediate
+learningPath: all
+prerequisites: None.
+published: false
+milos:
+  - id: M06.A
+    statement: Explain the relationship between FAIR and Open Science.
+    learnerTitle: FAIR is not the same as open
+    learnerStatement: >-
+      Explain how FAIR and Open Science relate, and why openness is a spectrum
+      rather than a yes-or-no choice.
+    phase: in-session
+    status: migrated
+    published: false
+    cilos: [C5]
+    content: |
+      **FAIR** describes how data and other outputs are made findable, accessible, interoperable and reusable. **Open Science** is a broader movement towards transparent, collaborative and accessible research. The two overlap, but they are not the same thing.
+
+      You can make data FAIR without making it open: a well-described dataset can sit behind access restrictions and still be findable and reusable by the people who are allowed to use it. The guiding principle is **as open as possible, as closed as necessary**.
+
+      Openness brings benefits — verification, reuse, collaboration and public value — and limitations, including privacy, competitive, contractual and commercial concerns. It helps to distinguish four states:
+
+      - **FAIR** — well described and reusable, not necessarily accessible to everyone.
+      - **Shared** — available to a defined group, for example collaborators or a research community.
+      - **Restricted** — available under conditions such as a data use agreement.
+      - **Open** — available to anyone under a clear licence.
+    teaching:
+      teacher: |
+        Introduce the module storyline: FAIR is not open, decide what can be opened, choose where to share it, choose how others may reuse it, prepare it, and connect outputs.
+      learner: |
+        Create an ORCID account and add it to your researcher profile.
+
+        Then watch or revisit the “Turning the tide” film and note one argument that resonates with your discipline — and one concern you still have.
+    resources:
+      - label: ORCID
+        url: https://orcid.org
+        note: Create a persistent researcher identifier.
+      - label: “Turning the tide” film
+        note: For reflection or inspiration.
+    assessment: |
+      Reflection: where does your own research sit between “as open as possible” and “as closed as necessary”? Write two or three sentences and revisit them at the end of the module.
+    notes: >-
+      Imported from the “Overhauled Module 6” outline. The ORCID exercise and
+      “Turning the tide” resource were attached to this outcome in the source;
+      the reflection prompt is newly written. CILO mapping is inferred because
+      the CILO column is blank in the source. Module and MILO are unpublished
+      pending review.
+
+  - id: M06.B
+    statement: >-
+      Determine whether research outputs can be opened up and identify factors
+      that influence sharing decisions.
+    learnerTitle: What can you share?
+    learnerStatement: >-
+      Decide whether your outputs can be shared by weighing ethical, legal,
+      contractual and commercial factors.
+    phase: in-session
+    status: migrated
+    published: false
+    cilos: [C2, C3, C5]
+    content: |
+      Sharing decisions are rarely just a technical question. Start from the principle that research data is a public good, then test it against the specifics of your project.
+
+      Ask:
+
+      - **Ethics and privacy** — does the data contain personal or sensitive information? What does GDPR require, and can the data be anonymised or aggregated?
+      - **Intellectual property** — who owns the data and the outputs? Are there copyright, database rights or third-party restrictions?
+      - **Contracts** — do funders, collaborators or data providers impose conditions through a grant agreement or data sharing agreement?
+      - **Commercial interests** — is there a patent, spin-off or confidentiality agreement that depends on keeping something closed?
+      - **Access levels** — does everyone need the same access, or could different parts be open, shared with a group, or restricted?
+
+      Record the decision and its rationale. “Open” is not the only responsible outcome; a justified restriction is better than an accidental leak.
+    teaching:
+      teacher: |
+        Facilitate a discussion using participants' own outputs. Emphasise that a justified restriction is a valid outcome and should be documented.
+      learner: |
+        Choose one output from your current project. List the factors that determine whether it can be shared, and classify it as open, shared, restricted or closed. Write one sentence justifying the choice.
+    resources: []
+    assessment: |
+      Check: classify these three cases and explain your reasoning — (1) interview transcripts with identifiable participants, (2) a published article and its underlying numerical data, (3) code developed with an industry partner under an NDA.
+    notes: >-
+      Imported from the “Overhauled Module 6” outline. The scenario check is
+      newly written. CILO mapping is inferred.
+
+  - id: M06.C
+    statement: >-
+      Select appropriate dissemination routes for sharing research outputs
+      openly.
+    learnerTitle: Where will you share it?
+    learnerStatement: >-
+      Choose a suitable repository for your outputs and explain why it is
+      trustworthy.
+    phase: in-session
+    status: migrated
+    published: false
+    cilos: [C4, C5]
+    content: |
+      A repository is more than a download link. A trusted repository keeps your output accessible, citable and understandable over time.
+
+      There are three broad routes:
+
+      - **Institutional repositories**, such as 4TU.ResearchData, which connect outputs to the institution and its support services.
+      - **Disciplinary repositories**, which understand the conventions, file formats and metadata of a field.
+      - **Generalist repositories**, such as Zenodo, which accept many output types and are useful when no disciplinary option fits.
+
+      When choosing, ask whether the repository:
+
+      - assigns a persistent identifier such as a DOI;
+      - records rich metadata and supports discovery;
+      - offers appropriate access levels and licences;
+      - has a preservation and sustainability policy;
+      - is recognised as trustworthy by your community.
+
+      You can compare repositories in re3data.
+    teaching:
+      teacher: |
+        Walk through the repository selection criteria and the institutional repository options available at TU/e.
+      learner: |
+        Compare two repositories relevant to your field against these criteria. Pick one and write a short note explaining the choice.
+    resources:
+      - label: 4TU.ResearchData
+        url: https://data.4tu.nl
+      - label: Zenodo
+        url: https://zenodo.org
+      - label: re3data
+        url: https://www.re3data.org
+        note: Registry of research data repositories.
+    assessment: |
+      Check: which repository would you choose for a dataset, a piece of software and a conference poster? Explain the differences.
+    notes: >-
+      Imported from the “Overhauled Module 6” outline. Repository links were
+      added for learners and should be checked before publishing. CILO mapping
+      is inferred.
+
+  - id: M06.D
+    statement: >-
+      Apply appropriate open licenses and access conditions to research outputs.
+    learnerTitle: How may others reuse it?
+    learnerStatement: >-
+      Choose a licence and access conditions that match how you want your
+      outputs to be reused.
+    phase: in-session
+    status: migrated
+    published: false
+    cilos: [C2, C3, C5]
+    content: |
+      A licence tells others what they may do with your work. Without one, people may not know whether they can reuse it, even when the output is online.
+
+      For data and documents, Creative Commons licences are common. They range from permissive (CC BY) to more restrictive (CC BY-NC-ND), and each condition has consequences:
+
+      - **Attribution (BY)** — users must credit you.
+      - **NonCommercial (NC)** — no commercial reuse.
+      - **ShareAlike (SA)** — derivative works must use the same licence.
+      - **NoDerivatives (ND)** — no modified versions.
+
+      For software, open-source licences such as MIT, Apache 2.0 or GPL apply; you only need awareness of the differences here. When choosing, consider:
+
+      - how you want the work to be reused;
+      - whether your funder or institution requires a particular licence;
+      - whether the output contains third-party material you cannot relicense;
+      - what attribution you would like users to give.
+
+      If a dataset must be restricted, state the access conditions clearly instead of leaving them implicit.
+    teaching:
+      teacher: |
+        Use the Creative Commons chooser to compare licences, and note software licences at awareness level only.
+      learner: |
+        Pick one output and select a licence. Write the attribution statement you would like users to use when they reuse it.
+    resources:
+      - label: Creative Commons — choose a licence
+        url: https://creativecommons.org/choose/
+    assessment: |
+      Check: explain why CC BY is usually a better default than CC BY-ND for research data, and name one case where NC or ND might be appropriate.
+    notes: >-
+      Imported from the “Overhauled Module 6” outline. The source's internal
+      SharePoint link to the Copyright & Licenses Canvas module is omitted from
+      the public site; add a public replacement if one exists. CILO mapping is
+      inferred.
+
+  - id: M06.E
+    statement: Prepare research outputs for sharing and reuse.
+    learnerTitle: Preparing outputs for reuse
+    learnerStatement: >-
+      Prepare metadata, access statements and documentation so others can
+      understand and reuse your outputs.
+    phase: in-session
+    status: migrated
+    published: false
+    cilos: [C3, C4, C5]
+    content: |
+      Sharing a file is not the same as making it reusable. A secondary user needs enough context to understand what the output is, how it was produced, and what they may do with it.
+
+      Before publishing, prepare:
+
+      - **Metadata** — title, creators, dates, methods, file formats and keywords, following the repository's schema.
+      - **An access or data availability statement** — a short, specific statement in the paper or output record explaining where the data can be found, under what conditions, and why.
+      - **Embargoes** — a defined period before release, for example while a patent is filed or an article is under embargo. An embargo is not the same as “not available”.
+      - **Documentation for secondary use** — a README, codebook, variable descriptions, processing steps and software environment, so someone else can interpret the files without asking you.
+
+      Plan for preservation as well: use open, well-documented formats where possible and record how the files relate to one another.
+    teaching:
+      teacher: |
+        Show an example data availability statement and a README, and discuss what a secondary user would need.
+      learner: |
+        Draft a data availability statement for one of your papers. Then list the documentation a secondary user would need to reuse the underlying data.
+    resources:
+      - label: 4TU.ResearchData — guidance
+        url: https://data.4tu.nl
+        note: Check the repository's metadata and documentation guidance.
+    assessment: |
+      Check: review a data availability statement from a paper in your field. Does it say where the data is, how to access it, and under what conditions?
+    notes: >-
+      Imported from the “Overhauled Module 6” outline. The source references
+      UMCG material on data availability statements but does not link it. CILO
+      mapping is inferred.
+
+  - id: M06.F
+    statement: >-
+      Connect research outputs to maximize discoverability, transparency and
+      impact.
+    learnerTitle: Connecting your outputs
+    learnerStatement: >-
+      Link your data, software and publications so they are discoverable and
+      correctly cited.
+    phase: in-session
+    status: migrated
+    published: false
+    cilos: [C4, C5]
+    content: |
+      Research outputs are easier to find, trust and reuse when they point to one another. A reader who finds the article should be able to reach the data; someone who finds the dataset should be able to reach the code and the publication.
+
+      Connect your outputs by:
+
+      - **Linking** data, software and publications through persistent identifiers and repository records.
+      - **Citing** datasets and software as you would cite a paper, with creators, title, version, repository and DOI.
+      - **Maintaining a researcher identifier**, such as ORCID, so your outputs are attributed to you across name changes and institutions.
+      - **Thinking in ecosystems** — repository records, ORCID, DOI, metadata and citations all reinforce one another.
+
+      Finally, decide what comes next in your Open Science journey. The RDM part may be done, but sharing and reuse continue after the project ends.
+    teaching:
+      teacher: |
+        Ask participants to map their outputs and identifiers, then close with each person naming one next step.
+      learner: |
+        Map your current outputs and identifiers: publications, datasets, software and ORCID. Draw the links between them and identify one link that is missing.
+    resources:
+      - label: ORCID
+        url: https://orcid.org
+    assessment: |
+      Reflection: name one concrete next step you will take to connect or share your outputs after this module.
+    notes: >-
+      Imported from the “Overhauled Module 6” outline. The closing reflection is
+      newly written from the source's “what's next” note. CILO mapping is
+      inferred.

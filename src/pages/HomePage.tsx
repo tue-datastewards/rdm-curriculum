@@ -4,6 +4,7 @@ import { ModuleRow } from '../components/ModuleRow'
 import { curriculum } from '../data/curriculum'
 import { learnerStats, publishedCiloCoverage } from '../data/derive'
 import { asset } from '../lib/assets'
+import { moduleNumber } from '../lib/labels'
 import { useProgress } from '../lib/progress'
 import { useTitle } from '../lib/useTitle'
 
@@ -99,18 +100,15 @@ export function HomePage() {
                   {moduleIds.length > 0 && (
                     <p className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted">
                       <span>Taught in</span>
-                      {moduleIds.map((id) => {
-                        const moduleIndex = modules.findIndex((module) => module.id === id)
-                        return (
-                          <Link
-                            key={id}
-                            to={`/modules/${id}`}
-                            className="border border-rule px-2 py-0.5 font-bold text-ink hover:border-brand hover:text-brand"
-                          >
-                            Module {String(moduleIndex + 1).padStart(2, '0')}
-                          </Link>
-                        )
-                      })}
+                      {moduleIds.map((id) => (
+                        <Link
+                          key={id}
+                          to={`/modules/${id}`}
+                          className="border border-rule px-2 py-0.5 font-bold text-ink hover:border-brand hover:text-brand"
+                        >
+                          Module {moduleNumber(id)}
+                        </Link>
+                      ))}
                     </p>
                   )}
                 </div>
@@ -135,8 +133,8 @@ export function HomePage() {
           </div>
 
           <div className="mt-10 border-b border-rule">
-            {modules.map((module, index) => (
-              <ModuleRow key={module.id} module={module} index={index} />
+            {modules.map((module) => (
+              <ModuleRow key={module.id} module={module} />
             ))}
           </div>
         </div>

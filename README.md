@@ -216,6 +216,7 @@ src/styles/                brand tokens
 
 ## Roadmap
 
-- Add module M06 (*From FAIR to Open*) and the remaining modules.
+- Add modules M02–M05; M06 is imported as a reviewable draft and needs an
+  editorial pass before it is published.
 - Optional Word importer/exporter for the instructional design templates.
 - Optional cohort feedback at the end of a module (no accounts needed).
