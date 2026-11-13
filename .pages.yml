@@ -1,0 +1,200 @@
+# Pages CMS configuration — the editing layer for the YAML files in /data.
+# Editors sign in at https://app.pagescms.org with their GitHub account.
+# This file is not used by the site build; it only defines the editor UI.
+
+content:
+  - name: course
+    label: Course
+    type: file
+    path: data/course.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Course title
+        type: string
+        required: true
+      - name: subtitle
+        label: Subtitle
+        type: string
+      - name: version
+        label: Version / academic year
+        type: string
+        required: true
+        description: Shown in the site header, for example 2026-2027.
+      - name: description
+        label: Description
+        type: text
+        required: true
+
+  - name: cilos
+    label: Course outcomes (CILOs)
+    type: collection
+    path: data/cilos
+    format: yaml
+    filename: "{primary}.yml"
+    operations:
+      delete: false
+    view:
+      primary: id
+      fields: [id, title, statement]
+      sort: [id]
+      search: [id, title, statement]
+    fields:
+      - name: id
+        label: ID
+        type: string
+        required: true
+        pattern:
+          regex: "^C\\d{1,2}$"
+          message: Use C followed by a number, for example C1.
+        description: Stable identifier used in links and in MILO references. Do not rename it once it is in use.
+      - name: title
+        label: Short title
+        type: string
+        required: true
+        options:
+          maxlength: 80
+      - name: statement
+        label: Outcome statement
+        type: text
+        required: true
+
+  - name: modules
+    label: Modules
+    type: collection
+    path: data/modules
+    format: yaml
+    filename: "{primary}.yml"
+    view:
+      primary: id
+      fields: [id, title, learningPath]
+      sort: [id]
+      search: [id, title]
+    fields:
+      - name: id
+        label: Module ID
+        type: string
+        required: true
+        pattern:
+          regex: "^M\\d{2}$"
+          message: Use M followed by two digits, for example M02.
+        description: Also determines the MILO prefix, e.g. M02.A. The file is stored as <id>.yml.
+      - name: title
+        label: Module title
+        type: string
+        required: true
+      - name: description
+        label: Module description
+        type: text
+        required: true
+      - name: learningPath
+        label: Learning path
+        type: select
+        required: true
+        options:
+          values:
+            - name: core
+              label: Core track (mandatory)
+            - name: elective
+              label: Elective
+            - name: all
+              label: All learning paths
+      - name: prerequisites
+        label: Pre-requisites
+        type: text
+        description: Leave empty if there are none.
+
+      - name: milos
+        label: Module intended learning outcomes (MILOs)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{id} — {statement}"
+        fields:
+          - name: id
+            label: MILO ID
+            type: string
+            required: true
+            pattern:
+              regex: "^M\\d{2}\\.[A-Z]$"
+              message: Use the module ID, a dot and a capital letter, e.g. M02.A.
+          - name: statement
+            label: Outcome statement
+            type: text
+            required: true
+          - name: phase
+            label: Phase
+            type: select
+            required: true
+            options:
+              values:
+                - name: preparatory
+                  label: Preparatory work
+                - name: in-session
+                  label: In-session work
+          - name: status
+            label: Status
+            type: select
+            required: true
+            options:
+              values:
+                - name: complete
+                  label: Complete
+                - name: migrated
+                  label: Migrated — needs review
+                - name: draft
+                  label: Draft
+          - name: cilos
+            label: Course outcomes addressed
+            type: reference
+            required: true
+            options:
+              collection: cilos
+              multiple: true
+              min: 1
+              search: "id,title,statement"
+              value: "{fields.id}"
+              label: "{fields.id} · {fields.title}"
+          - name: content
+            label: Content / essential concepts
+            type: text
+            description: Markdown is supported. Start bullets with "- ".
+          - name: teaching
+            label: Teaching-learning strategies
+            type: object
+            fields:
+              - name: teacher
+                label: Teacher's activity
+                type: text
+                description: Markdown is supported.
+              - name: learner
+                label: Learner's activity
+                type: text
+                description: Markdown is supported.
+          - name: resources
+            label: Resources
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{label}"
+            fields:
+              - name: label
+                type: string
+                required: true
+              - name: url
+                label: URL
+                type: string
+                description: Optional. Must start with http:// or https://.
+              - name: note
+                label: Note
+                type: string
+          - name: assessment
+            label: Assessment
+            type: text
+            description: Markdown is supported.
+          - name: notes
+            label: Internal note
+            type: text
+            description: Shown on the site as a small note under the MILO.

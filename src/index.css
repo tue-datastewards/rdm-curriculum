@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino,
+    "Book Antiqua", Georgia, serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  html,
+  body {
+    /* Wide tables scroll inside their own container; the page never scrolls
+       sideways (which iOS Safari would otherwise allow). */
+    overflow-x: clip;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-800 antialiased;
+  }
+
+  ::selection {
+    @apply bg-indigo-100 text-indigo-950;
+  }
+}
+
+/* Markdown rendered from content/teaching/assessment fields. */
+.md {
+  @apply text-[0.9375rem] leading-relaxed text-slate-700;
+}
+
+.md > * + * {
+  @apply mt-2.5;
+}
+
+.md ul {
+  @apply list-disc pl-5;
+}
+
+.md ul ul {
+  @apply mt-1 list-[circle] pl-4;
+}
+
+.md ol {
+  @apply list-decimal pl-5;
+}
+
+.md li + li {
+  @apply mt-1;
+}
+
+.md strong {
+  @apply font-semibold text-slate-900;
+}
+
+.md em {
+  @apply italic;
+}
+
+.md a {
+  @apply font-medium text-indigo-700 underline decoration-indigo-300 underline-offset-2 hover:text-indigo-900 hover:decoration-indigo-600;
+}
+
+.md code {
+  @apply rounded bg-slate-100 px-1 py-0.5 font-mono text-[0.85em] text-slate-800;
+}
+
+.md blockquote {
+  @apply border-l-2 border-slate-200 pl-3 text-slate-500;
+}
+
+.md p:empty {
+  display: none;
+}
+
+@media print {
+  @page {
+    margin: 16mm;
+  }
+
+  body {
+    background: white !important;
+  }
+
+  .print-hide {
+    display: none !important;
+  }
+
+  .print-main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .print-break {
+    break-inside: avoid;
+  }
+
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  .shadow-sm,
+  .shadow,
+  .shadow-md {
+    box-shadow: none !important;
+  }
+}
