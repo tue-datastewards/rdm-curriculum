@@ -1,11 +1,17 @@
 id: M01
 title: Introduction to Research Data Management and Data Management Plan
+summary: >-
+  Data management starts before you collect anything. Learn why plans matter,
+  review a sample DMP, and draft your own.
 description: >-
   What does it mean to manage data responsibly for research? How to create a
   data management plan? After this module, you will be able to identify good
   research data management practices and create a data management plan for your
   research.
+duration: 45 min
+level: introductory
 learningPath: core
+published: true
 prerequisites: >-
   Any experience in doing academic research, such as a research project at a
   bachelor's, master's, or doctoral level.
@@ -14,32 +20,35 @@ milos:
     statement: >-
       Explain the purpose and benefits of a Data Management Plan throughout the
       research data lifecycle.
+    learnerTitle: Why data management matters
+    learnerStatement: >-
+      Explain how a data management plan helps you before, during and after your
+      project.
     phase: in-session
     status: complete
+    published: true
     cilos: [C1, C2, C5]
     content: |
-      - What is [research data](https://closer-cohorts.github.io/understanding-metadata/introduction/1.1%20Research%20data/)? Research data as public good.
-      - Why do we manage research data?
-        - To make research data a public good
-        - To fulfil obligations as researchers ([NL Code of Conduct for Research Integrity 2027](https://www.knaw.nl/en/publications/netherlands-code-conduct-research-integrity-2027), TU/e policy, funder and publisher requirements) — extrinsic motivators
-        - To benefit future data users (including "future you") — intrinsic motivators
-      - What does it mean to manage research data well? What is bad research data management?
-        - Challenges: data loss, PhDs leaving, etc.
-        - Research Data Lifecycle approach
-      - How can we manage data well? → We need planning: a data management plan.
-        - "A DMP is more than a bureaucratic document"
-        - "All plans are useless, but planning is everything"
+      Research data is the evidence your project is built on: measurements, code, documents, samples, and the files you create along the way. When it is well managed, your work is easier to verify, reuse and build on. When it is not, data gets lost, misunderstood, or becomes impossible to share.
+
+      There are three common reasons to manage it well:
+
+      - **Public good** — well-managed data can be reused by other researchers.
+      - **Obligations** — TU/e policy, funders, publishers and the Netherlands Code of Conduct for Research Integrity all expect it.
+      - **Future you** — you will be the first person who needs to understand your files six months from now.
+
+      Most data problems are ordinary: a lost laptop, a departing PhD candidate, a folder full of `final_v7.xlsx`. A data management plan is how you avoid them. It is more than a bureaucratic document — it is the planning that keeps your data usable.
+
+      "All plans are useless, but planning is everything."
     teaching:
       teacher: |
         Prepare learning materials about defining research data and research data management (e.g. mention folder structure and file naming conventions — foreshadowing later course content).
 
         Present an activity: matching RDM solution cards (e.g. naming convention) with problem cards (e.g. "which file is the latest one?").
       learner: |
-        Read the module.
+        Match each common data problem — such as "which file is the latest one?" — with the RDM practice that prevents it.
 
-        Match the RDM practice and the problems being solved.
-
-        Describe what benefits they get by doing good RDM for their research setup.
+        Then write down two benefits good data management would bring to your own project.
     resources: []
     assessment: ""
     notes: >-
@@ -50,8 +59,13 @@ milos:
     statement: >-
       Describe researcher responsibilities under TU/e policy, research integrity
       frameworks, requirements and funders and publishers.
+    learnerTitle: What TU/e and funders expect from you
+    learnerStatement: >-
+      Describe the responsibilities that apply to your research data, before,
+      during and after your project.
     phase: in-session
     status: draft
+    published: false
     cilos: [C2, C3]
     content: ""
     teaching:
@@ -72,28 +86,41 @@ milos:
       CILO mapping was blank in the revised matrix and is inferred from the
       previous version (CLO2, CLO3). The content cell is merged with M01.A in
       the source document, so content still needs to be written for this MILO.
+      Hidden from learners (published: false) until the policy content is
+      reviewed.
 
   - id: M01.C
     statement: >-
       Review a Data Management Plan for completeness, consistency, and
       alignment with project requirements.
+    learnerTitle: Reviewing a data management plan
+    learnerStatement: >-
+      Check a DMP for completeness, consistency and alignment with your project's
+      requirements.
     phase: in-session
     status: migrated
+    published: true
     cilos: [C2, C3, C4]
     content: |
-      - What is a good DMP?
-      - When do you use your DMP?
-      - How to use your DMP — when talking to your supervisor? How to communicate with collaborators (e.g. SURFfilesender)?
-      - Upload the DMP to Hora Finita, NWO, EC, etc.
+      A DMP is only useful if it is read and used. Review yours at three moments: before you start, when your project changes, and when you prepare to share or archive your data.
+
+      When you review a DMP, ask:
+
+      - **Is it complete?** Are collection, storage, documentation, sharing and preservation all addressed?
+      - **Is it consistent?** Do your storage and sharing choices match how sensitive the data is?
+      - **Does it fit the project?** Are funder, publisher and institutional requirements covered?
+
+      You will also use the plan in conversations with supervisors and collaborators, and when submitting it to systems such as Hora Finita, NWO or the European Commission.
     teaching:
       teacher: |
         A champion case of a DMP — having a DMP helped the research. (We are still looking for this case.)
       learner: |
-        Exchange DMPs with a peer and prepare feedback.
+        Exchange your DMP with a peer. Review it against the three questions above and prepare written feedback using the rubric (compliant, transparent, reproducible).
     resources:
       - label: PhD Guidelines
+        note: Available from your graduate school.
     assessment: |
-      Formative peer-review activity: provide feedback on another participant's DMP using a rubric (compliant, transparent, reproducible).
+      Peer review: give feedback on another participant's DMP using the rubric (compliant, transparent, reproducible). Use the feedback you receive to improve your own plan.
     notes: >-
       Migrated from the 2026-08-14 matrix (row "D. Review a DMP") and matched to
       this revised MILO.
@@ -102,27 +129,32 @@ milos:
     statement: >-
       Create a Data Management Plan covering data collection, storage,
       documentation, sharing, and preservation.
+    learnerTitle: Writing your data management plan
+    learnerStatement: >-
+      Draft a DMP covering collection, storage, documentation, sharing and
+      preservation.
     phase: in-session
     status: migrated
+    published: true
     cilos: [C1, C3, C4, C5]
     content: |
-      - What is a data management plan?
-      - Why is a DMP important? How does a DMP help you manage your data?
-      - Introduction to Research Cockpit.
+      A DMP records the decisions you make about your data: what you will collect, where it will live, how it will be documented, who can access it, how long you will keep it, and what happens to it when the project ends.
+
+      You do not need to have every answer on day one. Start with the decisions you know and revisit the plan as the project develops. Research Cockpit contains the TU/e template and guidance. Data stewards can help with specifics such as licences or choosing a repository.
     teaching:
       teacher: |
         Video: "DMP supports the research data lifecycle".
 
         Fill in the DMP in Research Cockpit (instructions are provided there). Reassure participants not to worry too much about specifics (e.g. which FAIR licence); they can ask data stewards.
       learner: |
-        Fill in your own DMP in Research Cockpit.
+        Fill in the DMP template in Research Cockpit for your own project.
+
+        Then match each requirement card (for example FAIR data) with the DMP question it relates to, and note two topics you want to explore further.
     resources:
       - label: Research Cockpit
-        note: DMP template and instructions.
+        note: TU/e DMP template and instructions.
     assessment: |
-      - Submit your DMP in Research Cockpit.
-      - Match requirement cards (e.g. FAIR data) with DMP questions (e.g. will you publish your data in 4TU.ResearchData?).
-      - Personal reflection: form personal learning goals for the DMP topics you need to know more about.
+      Submit your DMP in Research Cockpit. The matching exercise and your personal reflection are formative: they help you see which topics to explore next.
     notes: >-
       Migrated from the 2026-08-14 matrix (row "C. Create a DMP") and matched to
       this revised MILO.

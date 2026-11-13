@@ -1,77 +1,261 @@
+@import "./styles/rdm-tokens.css";
 @import "tailwindcss";
 
-@theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino,
-    "Book Antiqua", Georgia, serif;
+/*
+ * TU/e "This is RDM" design system, derived from the Data Stewards brand kit
+ * v1.0.0 (internal, CC BY-NC-SA 4.0). See ATTRIBUTION.md and LICENSES.md.
+ *
+ * The kit's tokens are print-first with @media screen aliases, so the same
+ * values drive the screen and print stylesheets.
+ */
+@theme inline {
+  --color-brand: var(--rdm-purple);
+  --color-brand-deep: var(--rdm-purple-deep);
+  --color-pattern-light: var(--rdm-pattern-on-light);
+  --color-pattern-brand: var(--rdm-pattern-on-brand);
+  --color-ink: var(--rdm-ink);
+  --color-muted: var(--rdm-slate);
+  --color-paper: var(--rdm-paper);
+  --color-rule: var(--rdm-rule);
+  --color-cover: var(--rdm-cover-gray);
+  /* Extensions: a light purple wash for task blocks (not in the kit). */
+  --color-wash: #f8f0f5;
+  --color-wash-strong: #f1e3ec;
+  --font-sans: var(--rdm-font-sans);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
-  }
-
-  html,
-  body {
-    /* Wide tables scroll inside their own container; the page never scrolls
-       sideways (which iOS Safari would otherwise allow). */
+    scroll-padding-top: 6rem;
     overflow-x: clip;
   }
 
   body {
-    @apply bg-slate-50 text-slate-800 antialiased;
+    overflow-x: clip;
+    background: var(--rdm-background);
+    color: var(--rdm-text);
+    font-family: var(--rdm-font-sans);
+    font-size: var(--rdm-body-size);
+    line-height: var(--rdm-body-leading);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    @apply bg-indigo-100 text-indigo-950;
+    background: var(--rdm-purple);
+    color: var(--rdm-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--rdm-focus);
+    outline-offset: 3px;
+  }
+
+  a {
+    color: var(--rdm-link);
+  }
+
+  svg {
+    flex-shrink: 0;
   }
 }
 
-/* Markdown rendered from content/teaching/assessment fields. */
+/* Type roles from the brand kit ------------------------------------------- */
+
+.rdm-display {
+  font-size: var(--rdm-display-size);
+  line-height: var(--rdm-display-leading);
+  letter-spacing: var(--rdm-display-tracking);
+  font-weight: var(--rdm-weight-bold);
+}
+
+.rdm-title {
+  font-size: var(--rdm-title-size);
+  line-height: var(--rdm-title-leading);
+  letter-spacing: var(--rdm-title-tracking);
+  font-weight: var(--rdm-weight-bold);
+}
+
+.rdm-label {
+  font-size: var(--rdm-label-size);
+  line-height: var(--rdm-label-leading);
+  letter-spacing: var(--rdm-label-tracking);
+  font-weight: var(--rdm-weight-bold);
+  text-transform: uppercase;
+}
+
+.rdm-small {
+  font-size: var(--rdm-small-size);
+  line-height: var(--rdm-small-leading);
+}
+
+.rdm-caption {
+  font-size: var(--rdm-caption-size);
+  line-height: var(--rdm-caption-leading);
+}
+
+/* Components -------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.25rem;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 0.875rem;
+  font-weight: var(--rdm-weight-bold);
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease;
+}
+
+.btn-primary {
+  border-color: var(--rdm-purple);
+  background: var(--rdm-purple);
+  color: var(--rdm-paper);
+}
+
+.btn-primary:hover {
+  border-color: var(--rdm-purple-deep);
+  background: var(--rdm-purple-deep);
+}
+
+.btn-outline {
+  border-color: var(--rdm-ink);
+  background: transparent;
+  color: var(--rdm-ink);
+}
+
+.btn-outline:hover {
+  background: var(--rdm-ink);
+  color: var(--rdm-paper);
+}
+
+.btn-inverse {
+  border-color: var(--rdm-paper);
+  background: var(--rdm-paper);
+  color: var(--rdm-purple);
+}
+
+.btn-inverse:hover {
+  background: var(--color-wash-strong);
+}
+
+.rdm-card {
+  border: 1px solid var(--rdm-rule);
+  background: var(--rdm-paper);
+}
+
+.rdm-card-link {
+  transition: border-color 120ms ease;
+}
+
+.rdm-card-link:hover {
+  border-color: var(--rdm-purple);
+}
+
+.search-dialog {
+  margin: 12vh auto auto;
+}
+
+.search-dialog::backdrop {
+  background: rgb(0 0 0 / 0.55);
+}
+
+.hero-pattern {
+  position: absolute;
+  inset: 0 0 0 auto;
+  height: 100%;
+  width: 50%;
+  object-fit: cover;
+  object-position: left center;
+  opacity: 0.4;
+  -webkit-mask-image: linear-gradient(to right, transparent 14%, #000 72%);
+  mask-image: linear-gradient(to right, transparent 14%, #000 72%);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Long-form reading: 17px/1.7 is a deliberate accessibility extension of the
+   kit's 16px/1.6 body size. */
 .md {
-  @apply text-[0.9375rem] leading-relaxed text-slate-700;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--rdm-ink);
 }
 
 .md > * + * {
-  @apply mt-2.5;
+  margin-top: 0.9rem;
 }
 
 .md ul {
-  @apply list-disc pl-5;
+  list-style: none;
+  padding-left: 0;
 }
 
-.md ul ul {
-  @apply mt-1 list-[circle] pl-4;
-}
-
-.md ol {
-  @apply list-decimal pl-5;
+.md li {
+  position: relative;
+  padding-left: 1.1rem;
 }
 
 .md li + li {
-  @apply mt-1;
+  margin-top: 0.45rem;
+}
+
+.md li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.35rem;
+  height: 0.35rem;
+  background: var(--rdm-purple);
+}
+
+.md ul ul {
+  margin-top: 0.45rem;
+  padding-left: 0.9rem;
+}
+
+.md ul ul li::before {
+  background: transparent;
+  border: 1px solid var(--rdm-purple);
 }
 
 .md strong {
-  @apply font-semibold text-slate-900;
-}
-
-.md em {
-  @apply italic;
+  font-weight: var(--rdm-weight-bold);
 }
 
 .md a {
-  @apply font-medium text-indigo-700 underline decoration-indigo-300 underline-offset-2 hover:text-indigo-900 hover:decoration-indigo-600;
+  color: var(--rdm-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.md a:hover {
+  color: var(--rdm-purple-deep);
 }
 
 .md code {
-  @apply rounded bg-slate-100 px-1 py-0.5 font-mono text-[0.85em] text-slate-800;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--color-wash);
+  padding: 0.1em 0.3em;
 }
 
 .md blockquote {
-  @apply border-l-2 border-slate-200 pl-3 text-slate-500;
+  border-left: 2px solid var(--rdm-purple);
+  padding-left: 1rem;
+  font-style: italic;
+  color: var(--rdm-slate);
 }
 
 .md p:empty {
@@ -80,11 +264,12 @@
 
 @media print {
   @page {
-    margin: 16mm;
+    margin: 18mm 16mm;
   }
 
   body {
     background: white !important;
+    font-size: 10.5pt;
   }
 
   .print-hide {
@@ -100,14 +285,29 @@
     break-inside: avoid;
   }
 
+  .hero-pattern {
+    display: none;
+  }
+
   a {
     color: inherit !important;
     text-decoration: none !important;
   }
 
-  .shadow-sm,
-  .shadow,
-  .shadow-md {
-    box-shadow: none !important;
+  .rdm-card {
+    border-color: var(--rdm-rule);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

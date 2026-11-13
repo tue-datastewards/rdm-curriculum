@@ -1,0 +1,202 @@
+# Sveltia CMS configuration for the internal TU/e GitLab project.
+#
+# Sign in at <site>/admin/ with your TU/e GitLab account. Editors need the
+# Developer role (or higher) on the project. Save commits to the default branch
+# and GitLab Pages rebuilds the course automatically.
+#
+# Replace the placeholders below once the project exists:
+#   repo     -> <group>/<project>
+#   base_url -> https://<your-tue-gitlab-host>
+#   api_root -> https://<your-tue-gitlab-host>/api/v4
+#   app_id   -> OAuth application client ID (PKCE, scope: api, Confidential: off,
+#               Redirect URI: https://<pages-url>/admin/)
+
+backend:
+  name: gitlab
+  repo: tue-library/rdm-curriculum
+  branch: main
+  base_url: https://gitlab.tue.nl
+  api_root: https://gitlab.tue.nl/api/v4
+  auth_type: pkce
+  app_id: REPLACE_WITH_OAUTH_CLIENT_ID
+  commit_messages:
+    create: 'content: create {{collection}} “{{slug}}”'
+    update: 'content: update {{collection}} “{{slug}}”'
+    delete: 'content: delete {{collection}} “{{slug}}”'
+
+# Uploads are not used by the course content. The folder exists only because
+# Sveltia requires one; set public_folder to include your Pages base path if you
+# ever start using uploaded images.
+media_folder: public/media
+public_folder: /media
+
+collections:
+  - name: course
+    label: Course
+    files:
+      - name: course
+        label: Course settings
+        file: data/course.yml
+        fields:
+          - { name: title, label: Course title, widget: string, required: true }
+          - { name: subtitle, label: Subtitle, widget: string, required: false }
+          - name: tagline
+            label: Homepage headline
+            widget: string
+            required: true
+            hint: The large sentence on the homepage, for example “Learn to manage research data well”.
+          - name: audience
+            label: Audience
+            widget: string
+            required: false
+            hint: Shown on the homepage and the About page.
+          - name: duration
+            label: Course duration
+            widget: string
+            required: false
+            hint: For example “About 45 minutes · self-paced”.
+          - { name: contact, label: Contact email, widget: string, required: false }
+          - name: version
+            label: Version / academic year
+            widget: string
+            required: true
+          - { name: description, label: Description, widget: text, required: true }
+
+  - name: cilos
+    label: Course outcomes (CILOs)
+    label_singular: CILO
+    folder: data/cilos
+    extension: yml
+    format: yaml
+    create: true
+    delete: false
+    identifier_field: id
+    slug: '{{fields.id}}'
+    summary: '{{fields.id}} · {{fields.title}}'
+    sortable_fields: [id, title]
+    fields:
+      - name: id
+        label: ID
+        widget: string
+        required: true
+        pattern: ['^C\d{1,2}$', 'Use C followed by a number, for example C1.']
+        hint: Stable identifier used in links and MILO references. Do not rename once in use.
+      - { name: title, label: Short title, widget: string, required: true }
+      - { name: statement, label: Official outcome statement, widget: text, required: true }
+
+  - name: modules
+    label: Modules
+    label_singular: Module
+    folder: data/modules
+    extension: yml
+    format: yaml
+    create: true
+    identifier_field: id
+    slug: '{{fields.id}}'
+    summary: '{{fields.id}} · {{fields.title}}'
+    sortable_fields: [id, title]
+    fields:
+      - name: id
+        label: Module ID
+        widget: string
+        required: true
+        pattern: ['^M\d{2}$', 'Use M followed by two digits, for example M02.']
+        hint: Also sets the MILO prefix, e.g. M02.A.
+      - { name: title, label: Module title, widget: string, required: true }
+      - name: summary
+        label: Learner summary
+        widget: text
+        required: true
+        hint: One or two sentences shown on module cards and at the top of the module.
+      - { name: description, label: Full description (staff), widget: text, required: false }
+      - { name: duration, label: Duration, widget: string, required: true, hint: 'For example: 45 min.' }
+      - name: level
+        label: Level
+        widget: select
+        required: true
+        options:
+          - { label: Introductory, value: introductory }
+          - { label: Intermediate, value: intermediate }
+          - { label: Advanced, value: advanced }
+      - name: learningPath
+        label: Learning path
+        widget: select
+        required: true
+        options:
+          - { label: Core track (mandatory), value: core }
+          - { label: Elective, value: elective }
+          - { label: All learning paths, value: all }
+      - { name: prerequisites, label: Pre-requisites, widget: text, required: false }
+      - name: published
+        label: Published to learners
+        widget: boolean
+        default: false
+        hint: Leave off while the module is being written.
+      - name: milos
+        label: Module intended learning outcomes (MILOs)
+        label_singular: MILO
+        widget: list
+        summary: '{{fields.id}} — {{fields.learnerTitle}}'
+        fields:
+          - name: id
+            label: MILO ID
+            widget: string
+            required: true
+            pattern: ['^M\d{2}\.[A-Z]$', 'Use the module ID, a dot and a capital letter, e.g. M02.A.']
+          - { name: statement, label: Official outcome statement (staff), widget: text, required: true }
+          - name: learnerTitle
+            label: Learner section title
+            widget: string
+            required: false
+            hint: Friendly heading used on the learner page, e.g. “Why data management matters”.
+          - name: learnerStatement
+            label: Learner outcome statement
+            widget: text
+            required: false
+            hint: Second-person version of the outcome. Falls back to the official statement.
+          - name: phase
+            label: Phase
+            widget: select
+            required: true
+            options:
+              - { label: Preparatory work, value: preparatory }
+              - { label: In-session work, value: in-session }
+          - name: status
+            label: Editorial status
+            widget: select
+            required: true
+            options:
+              - { label: Complete, value: complete }
+              - { label: Migrated — needs review, value: migrated }
+              - { label: Draft, value: draft }
+          - name: published
+            label: Published to learners
+            widget: boolean
+            default: false
+            hint: Only published MILOs appear on the course site and in search.
+          - name: cilos
+            label: Course outcomes addressed
+            widget: relation
+            collection: cilos
+            multiple: true
+            value_field: id
+            display_fields: [id, title]
+            search_fields: [id, title, statement]
+            required: true
+          - { name: content, label: Content / essential concepts, widget: markdown, required: false }
+          - name: teaching
+            label: Teaching-learning strategies
+            widget: object
+            fields:
+              - { name: teacher, label: Teacher's activity (staff), widget: markdown, required: false }
+              - { name: learner, label: Learner's activity (shown as “Your task”), widget: markdown, required: false }
+          - name: resources
+            label: Resources
+            widget: list
+            summary: '{{fields.label}}'
+            fields:
+              - { name: label, label: Label, widget: string, required: true }
+              - { name: url, label: URL, widget: string, required: false }
+              - { name: note, label: Note, widget: string, required: false }
+          - { name: assessment, label: Assessment, widget: markdown, required: false }
+          - { name: notes, label: Internal note (staff), widget: text, required: false }

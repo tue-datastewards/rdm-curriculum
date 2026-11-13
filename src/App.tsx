@@ -1,11 +1,14 @@
 import { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
-import { Layout } from './components/Layout'
-import { OverviewPage } from './pages/OverviewPage'
-import { MatrixPage } from './pages/MatrixPage'
+import { SiteLayout } from './components/SiteLayout'
+import { StaffLayout } from './components/StaffLayout'
+import { HomePage } from './pages/HomePage'
+import { ModulesPage } from './pages/ModulesPage'
 import { ModulePage } from './pages/ModulePage'
-import { CiloPage } from './pages/CiloPage'
+import { AboutPage } from './pages/AboutPage'
 import { NotFoundPage } from './pages/NotFoundPage'
+import { CurriculumPage } from './staff/CurriculumPage'
+import { StaffCiloPage } from './staff/StaffCiloPage'
 
 function ScrollBehaviour() {
   const { pathname, hash } = useLocation()
@@ -14,7 +17,7 @@ function ScrollBehaviour() {
     if (hash) {
       const element = document.getElementById(hash.slice(1))
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        element.scrollIntoView({ block: 'start' })
         return
       }
     }
@@ -29,11 +32,17 @@ export default function App() {
     <>
       <ScrollBehaviour />
       <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<OverviewPage />} />
-          <Route path="matrix" element={<MatrixPage />} />
+        <Route element={<SiteLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="modules" element={<ModulesPage />} />
           <Route path="modules/:moduleId" element={<ModulePage />} />
-          <Route path="cilos/:ciloId" element={<CiloPage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+
+        <Route path="curriculum" element={<StaffLayout />}>
+          <Route index element={<CurriculumPage />} />
+          <Route path="cilos/:ciloId" element={<StaffCiloPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

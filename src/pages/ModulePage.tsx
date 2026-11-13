@@ -1,267 +1,364 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
-import { LearningPathBadge, PhaseBadge, StatusBadge } from '../components/Badges'
-import { CiloChip } from '../components/CiloChip'
-import { Empty, Field } from '../components/Field'
 import { Markdown } from '../components/Markdown'
+import { ProgressBar } from '../components/ProgressBar'
 import { curriculum } from '../data/curriculum'
-import { moduleCiloIds } from '../data/derive'
-import type { Milo } from '../data/schema'
+import {
+  moduleNeighbours,
+  publishedMilos,
+  publishedModules,
+} from '../data/derive'
+import type { Milo, Module } from '../data/schema'
+import { levelLabel, moduleNumber, pathLabel } from '../lib/labels'
+import { moduleProgress, progressActions, useProgress } from '../lib/progress'
+import type { ProgressState } from '../lib/progress'
 import { useTitle } from '../lib/useTitle'
 import { NotFoundPage } from './NotFoundPage'
 
 function Resources({ milo }: { milo: Milo }) {
-  if (milo.resources.length === 0) return <Empty />
-
   return (
-    <ul className="space-y-1.5 text-sm leading-relaxed text-slate-700">
-      {milo.resources.map((resource) => (
-        <li key={resource.label} className="flex gap-2">
-          <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-slate-400" />
-          <span>
-            {resource.url ? (
-              <a
-                href={resource.url}
-                target="_blank"
-                rel="noreferrer"
-                className="font-medium text-indigo-700 underline decoration-indigo-300 underline-offset-2 hover:text-indigo-900"
-              >
-                {resource.label} ↗
-              </a>
-            ) : (
-              resource.label
-            )}
-            {resource.note && <span className="text-slate-500"> — {resource.note}</span>}
-          </span>
-        </li>
-      ))}
-    </ul>
+    <div className="mt-8">
+      <p className="rdm-label text-muted">Resources</p>
+      <ul className="mt-3 space-y-2">
+        {milo.resources.map((resource) => (
+          <li key={resource.label} className="flex items-start gap-2.5 text-sm">
+            <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 bg-brand" />
+            <span>
+              {resource.url ? (
+                <a
+                  href={resource.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-bold text-brand underline decoration-1 underline-offset-2 hover:text-brand-deep"
+                >
+                  {resource.label} ↗
+                </a>
+              ) : (
+                <span className="font-bold">{resource.label}</span>
+              )}
+              {resource.note && <span className="text-muted"> — {resource.note}</span>}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
-function MiloCard({ milo }: { milo: Milo }) {
+function Section({
+  module,
+  milo,
+  index,
+  progress,
+}: {
+  module: Module
+  milo: Milo
+  index: number
+  progress: ProgressState
+}) {
+  const done = Boolean(progress.sections[milo.id])
+  const title = milo.learnerTitle || milo.statement
+  const outcome = milo.learnerStatement || milo.statement
+
   return (
-    <article
-      id={milo.id}
-      className="print-break scroll-mt-24 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"
-    >
-      <header className="border-b border-slate-100 px-5 py-4">
-        <div className="flex items-start gap-3">
-          <span className="mt-0.5 shrink-0 rounded bg-slate-900 px-1.5 py-0.5 font-mono text-[11px] font-semibold tracking-wide text-white">
-            {milo.id}
-          </span>
-          <div className="min-w-0 flex-1">
-            <h3 className="text-base font-semibold leading-snug text-slate-900 sm:text-[17px]">
-              {milo.statement}
-            </h3>
-            <div className="mt-2 flex flex-wrap items-center gap-1.5">
-              <StatusBadge status={milo.status} />
-              <PhaseBadge phase={milo.phase} />
-              <span className="ml-1 inline-flex flex-wrap items-center gap-1">
-                {milo.cilos.length === 0 ? (
-                  <span className="text-[11px] font-medium text-rose-600">
-                    No CILO linked
-                  </span>
-                ) : (
-                  milo.cilos.map((id) => (
-                    <CiloChip
-                      key={id}
-                      id={id}
-                      title={curriculum.cilos.find((cilo) => cilo.id === id)?.title}
-                    />
-                  ))
-                )}
-              </span>
-            </div>
-          </div>
+    <section id={milo.id} className="print-break scroll-mt-28 border-t border-rule py-10">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="rdm-label text-muted">
+            Section {String(index + 1).padStart(2, '0')}
+          </p>
+          <h2 className="mt-2 text-2xl font-bold leading-tight tracking-tight sm:text-[1.75rem]">
+            {title}
+          </h2>
         </div>
-      </header>
-
-      <div className="space-y-5 px-5 py-5">
-        <Field label="Content / essential concepts">
-          {milo.content.trim() ? <Markdown>{milo.content}</Markdown> : <Empty />}
-        </Field>
-
-        <Field label="Teaching-learning strategies">
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="rounded-lg border border-slate-100 bg-slate-50/80 p-3">
-              <h5 className="text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">
-                Teacher&rsquo;s activity
-              </h5>
-              <div className="mt-1.5">
-                {milo.teaching.teacher.trim() ? (
-                  <Markdown>{milo.teaching.teacher}</Markdown>
-                ) : (
-                  <Empty />
-                )}
-              </div>
-            </div>
-            <div className="rounded-lg border border-slate-100 bg-slate-50/80 p-3">
-              <h5 className="text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-500">
-                Learner&rsquo;s activity
-              </h5>
-              <div className="mt-1.5">
-                {milo.teaching.learner.trim() ? (
-                  <Markdown>{milo.teaching.learner}</Markdown>
-                ) : (
-                  <Empty />
-                )}
-              </div>
-            </div>
-          </div>
-        </Field>
-
-        <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Resources">
-            <Resources milo={milo} />
-          </Field>
-          <Field label="Assessment">
-            {milo.assessment.trim() ? <Markdown>{milo.assessment}</Markdown> : <Empty />}
-          </Field>
-        </div>
-
-        {milo.notes && (
-          <div className="rounded-lg border-l-2 border-amber-300 bg-amber-50/70 px-3 py-2 text-xs leading-relaxed text-amber-900">
-            <span className="font-semibold">Note. </span>
-            {milo.notes}
-          </div>
-        )}
+        <button
+          type="button"
+          aria-pressed={done}
+          onClick={() => {
+            progressActions.toggleSection(milo.id)
+            progressActions.visit(module.id, milo.id)
+          }}
+          className={`print-hide shrink-0 border px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.06em] transition ${
+            done
+              ? 'border-brand bg-brand text-paper'
+              : 'border-rule text-muted hover:border-brand hover:text-brand'
+          }`}
+        >
+          {done ? 'Done ✓' : 'Mark done'}
+        </button>
       </div>
-    </article>
+
+      <p className="mt-4 max-w-2xl text-lg font-medium leading-relaxed text-brand">
+        {outcome}
+      </p>
+
+      {milo.content.trim() && (
+        <div className="mt-6 max-w-2xl">
+          <Markdown>{milo.content}</Markdown>
+        </div>
+      )}
+
+      {milo.teaching.learner.trim() && (
+        <div className="mt-8 max-w-2xl border-l-4 border-brand bg-wash p-5 sm:p-6">
+          <p className="rdm-label text-brand">Your task</p>
+          <div className="mt-2.5">
+            <Markdown>{milo.teaching.learner}</Markdown>
+          </div>
+        </div>
+      )}
+
+      {milo.resources.length > 0 && <Resources milo={milo} />}
+
+      {milo.assessment.trim() && (
+        <div className="mt-8 max-w-2xl border border-rule p-5 sm:p-6">
+          <p className="rdm-label text-brand">Check your understanding</p>
+          <div className="mt-2.5">
+            <Markdown>{milo.assessment}</Markdown>
+          </div>
+        </div>
+      )}
+    </section>
   )
 }
 
 export function ModulePage() {
   const { moduleId } = useParams()
   const { hash } = useLocation()
-  const module = curriculum.modules.find((item) => item.id === moduleId)
+  const progress = useProgress()
+  const [activeSection, setActiveSection] = useState('')
+
+  const module = publishedModules(curriculum).find((item) => item.id === moduleId)
   useTitle(module?.title ?? 'Module not found')
 
-  // The route is code-split, so the app-level hash scrolling can run before
-  // this page exists. Scroll to the linked MILO once it is on screen.
+  useEffect(() => {
+    if (!module) return
+    progressActions.visit(module.id)
+  }, [module?.id])
+
+  useEffect(() => {
+    if (!module) return
+    const elements = publishedMilos(module)
+      .map((milo) => document.getElementById(milo.id))
+      .filter((element): element is HTMLElement => element !== null)
+
+    if (elements.length === 0) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]
+        if (visible) setActiveSection(visible.target.id)
+      },
+      { rootMargin: '-25% 0px -60% 0px', threshold: 0 },
+    )
+
+    for (const element of elements) observer.observe(element)
+    setActiveSection(elements[0]?.id ?? '')
+    return () => observer.disconnect()
+  }, [module?.id])
+
   useEffect(() => {
     if (!hash) return
-    document
-      .getElementById(hash.slice(1))
-      ?.scrollIntoView({ block: 'start' })
-  }, [hash, moduleId])
+    document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' })
+  }, [hash, module?.id])
 
   if (!module) return <NotFoundPage />
 
-  const covered = moduleCiloIds(module, curriculum.cilos)
-  const counts = {
-    complete: module.milos.filter((milo) => milo.status === 'complete').length,
-    migrated: module.milos.filter((milo) => milo.status === 'migrated').length,
-    draft: module.milos.filter((milo) => milo.status === 'draft').length,
-  }
+  const sections = publishedMilos(module)
+  const sectionIds = sections.map((milo) => milo.id)
+  const status = moduleProgress(progress, sectionIds)
+  const index = publishedModules(curriculum).findIndex((item) => item.id === module.id)
+  const { previous, next } = moduleNeighbours(curriculum, module.id)
 
   return (
-    <div className="space-y-8">
-      <div className="print-hide">
-        <Link
-          to="/#modules"
-          className="inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition hover:text-indigo-700"
-        >
-          <span aria-hidden="true">←</span> All modules
-        </Link>
-      </div>
-
-      <header>
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded-md bg-slate-900 px-2 py-0.5 font-mono text-[11px] font-semibold tracking-wide text-white">
-            {module.id}
-          </span>
-          <LearningPathBadge path={module.learningPath} />
-          <span className="text-xs text-slate-500">
-            {module.milos.length} MILO{module.milos.length === 1 ? '' : 's'}
-          </span>
-          {counts.complete > 0 && (
-            <span className="text-xs text-emerald-700">{counts.complete} complete</span>
-          )}
-          {counts.migrated > 0 && (
-            <span className="text-xs text-amber-700">{counts.migrated} migrated</span>
-          )}
-          {counts.draft > 0 && (
-            <span className="text-xs text-slate-500">{counts.draft} draft</span>
-          )}
-          <button
-            type="button"
-            onClick={() => window.print()}
-            className="print-hide ml-auto rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 transition hover:border-slate-400 hover:bg-slate-50"
-          >
-            Print module
-          </button>
-        </div>
-
-        <h1 className="mt-3 max-w-3xl font-serif text-3xl font-medium leading-tight tracking-tight text-slate-900 sm:text-4xl">
-          {module.title}
-        </h1>
-        {module.description && (
-          <p className="mt-3 max-w-3xl text-[0.95rem] leading-relaxed text-slate-600">
-            {module.description}
-          </p>
-        )}
-
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <h2 className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">
-              Pre-requisites
-            </h2>
-            <p className="mt-1 text-sm leading-relaxed text-slate-700">
-              {module.prerequisites || 'None specified.'}
-            </p>
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <h2 className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">
-              Course outcomes addressed
-            </h2>
-            {covered.length === 0 ? (
-              <p className="mt-1 text-sm text-rose-600">
-                No CILOs linked yet.
-              </p>
-            ) : (
-              <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                {covered.map((id) => (
-                  <CiloChip
-                    key={id}
-                    id={id}
-                    title={curriculum.cilos.find((cilo) => cilo.id === id)?.title}
-                  />
-                ))}
-                <span className="text-xs text-slate-500">
-                  {covered.length} of {curriculum.cilos.length} CILOs
-                </span>
-              </div>
-            )}
-          </div>
-        </div>
-      </header>
-
-      <section aria-labelledby="outcomes-heading" className="space-y-4">
-        <div className="flex items-end justify-between gap-3">
-          <h2 id="outcomes-heading" className="font-serif text-2xl font-medium text-slate-900">
-            Module intended learning outcomes
-          </h2>
-          <Link
-            to="/matrix"
-            className="print-hide text-xs font-medium text-indigo-700 hover:underline"
-          >
-            View in matrix →
+    <div>
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="print-hide pt-6">
+          <Link to="/modules" className="text-sm text-muted hover:text-brand">
+            ← Modules
           </Link>
         </div>
 
-        {module.milos.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center">
-            <p className="text-sm text-slate-500">
-              This module has no intended learning outcomes yet.
-            </p>
+        <header className="mt-5 border-b border-rule pb-8">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <span className="rdm-label text-brand">Module {moduleNumber(index)}</span>
+            <span className="rdm-label text-muted">{pathLabel[module.learningPath]}</span>
+            <span className="rdm-label text-muted">{levelLabel[module.level]}</span>
+            <span className="rdm-label text-muted">{module.duration}</span>
           </div>
-        ) : (
-          module.milos.map((milo) => (
-            <MiloCard key={milo.id} milo={milo} />
-          ))
-        )}
-      </section>
+
+          <h1 className="rdm-title mt-4 max-w-4xl">{module.title}</h1>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
+            {module.summary}
+          </p>
+
+          <div className="mt-6 max-w-sm">
+            <div className="flex items-baseline justify-between gap-4">
+              <span className="rdm-label text-muted">Your progress</span>
+              <span className="text-xs text-muted">
+                {status.done} of {status.total} sections
+              </span>
+            </div>
+            <ProgressBar
+              className="mt-2"
+              percent={status.percent}
+              label={`${status.done} of ${status.total} sections complete`}
+            />
+          </div>
+        </header>
+
+        <section className="print-break mt-8 border border-rule p-6 sm:p-8">
+          <h2 className="rdm-label text-brand">In this module you will</h2>
+          <ul className="mt-4 space-y-3">
+            {sections.map((milo, sectionIndex) => (
+              <li key={milo.id} className="flex gap-3 text-[0.95rem] leading-relaxed">
+                <span className="mt-0.5 font-mono text-xs font-bold text-brand">
+                  {String(sectionIndex + 1).padStart(2, '0')}
+                </span>
+                <span>{milo.learnerStatement || milo.statement}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <details className="print-hide mt-6 border border-rule p-4 lg:hidden">
+          <summary className="rdm-label cursor-pointer text-brand">On this page</summary>
+          <ol className="mt-3 space-y-2 text-sm">
+            {sections.map((milo, sectionIndex) => (
+              <li key={milo.id}>
+                <a
+                  href={`#${milo.id}`}
+                  onClick={() => progressActions.visit(module.id, milo.id)}
+                  className="flex gap-2 text-muted hover:text-brand"
+                >
+                  <span className="font-mono text-xs">
+                    {String(sectionIndex + 1).padStart(2, '0')}
+                  </span>
+                  <span>{milo.learnerTitle || milo.statement}</span>
+                  {progress.sections[milo.id] && <span className="ml-auto text-brand">✓</span>}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </details>
+
+        <div className="print-hide mt-6 flex flex-wrap gap-3 lg:hidden">
+          <button
+            type="button"
+            onClick={() =>
+              progressActions.setModuleComplete(module.id, sectionIds, !status.complete)
+            }
+            className={`btn ${status.complete ? 'btn-primary' : 'btn-outline'}`}
+          >
+            {status.complete ? 'Reopen module' : 'Mark module complete'}
+          </button>
+          <button type="button" onClick={() => window.print()} className="btn btn-outline">
+            Print or save as PDF
+          </button>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-6 grid max-w-6xl gap-12 px-5 pb-16 sm:px-8 lg:grid-cols-[minmax(0,1fr)_15rem]">
+        <div className="min-w-0">
+          {sections.map((milo, sectionIndex) => (
+            <Section
+              key={milo.id}
+              module={module}
+              milo={milo}
+              index={sectionIndex}
+              progress={progress}
+            />
+          ))}
+
+          <nav className="print-hide mt-4 grid gap-px border-t border-rule pt-8 sm:grid-cols-2">
+            {previous ? (
+              <Link
+                to={`/modules/${previous.id}`}
+                className="border border-rule p-5 transition hover:border-brand hover:bg-wash"
+              >
+                <span className="rdm-label text-muted">Previous</span>
+                <span className="mt-2 block text-sm font-bold text-ink">
+                  {previous.title}
+                </span>
+              </Link>
+            ) : (
+              <span />
+            )}
+            {next ? (
+              <Link
+                to={`/modules/${next.id}`}
+                className="border border-rule p-5 text-right transition hover:border-brand hover:bg-wash sm:col-start-2"
+              >
+                <span className="rdm-label text-muted">Next</span>
+                <span className="mt-2 block text-sm font-bold text-ink">{next.title}</span>
+              </Link>
+            ) : (
+              <span />
+            )}
+          </nav>
+        </div>
+
+        <aside className="print-hide hidden lg:block">
+          <div className="sticky top-24">
+            <p className="rdm-label text-muted">On this page</p>
+            <ol className="mt-3 space-y-1">
+              {sections.map((milo, sectionIndex) => (
+                <li key={milo.id}>
+                  <a
+                    href={`#${milo.id}`}
+                    onClick={() => progressActions.visit(module.id, milo.id)}
+                    aria-current={activeSection === milo.id ? 'location' : undefined}
+                    className={`flex gap-2 border-l-2 py-1 pl-3 text-sm transition ${
+                      activeSection === milo.id
+                        ? 'border-brand font-bold text-brand'
+                        : 'border-rule text-muted hover:border-muted hover:text-ink'
+                    }`}
+                  >
+                    <span className="font-mono text-[11px]">
+                      {String(sectionIndex + 1).padStart(2, '0')}
+                    </span>
+                    <span className="min-w-0">{milo.learnerTitle || milo.statement}</span>
+                    {progress.sections[milo.id] && (
+                      <span className="ml-auto text-brand">✓</span>
+                    )}
+                  </a>
+                </li>
+              ))}
+            </ol>
+
+            <div className="mt-6 border-t border-rule pt-4">
+              <ProgressBar
+                percent={status.percent}
+                label={`${status.done} of ${status.total} sections complete`}
+              />
+              <p className="mt-2 text-xs text-muted">
+                {status.done} of {status.total} sections complete
+              </p>
+              <button
+                type="button"
+                onClick={() =>
+                  progressActions.setModuleComplete(module.id, sectionIds, !status.complete)
+                }
+                className={`btn mt-4 w-full ${
+                  status.complete
+                    ? 'border border-brand bg-brand text-paper hover:bg-brand-deep'
+                    : 'btn-outline'
+                }`}
+              >
+                {status.complete ? 'Reopen module' : 'Mark module complete'}
+              </button>
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="mt-2 w-full border border-rule px-3 py-2 text-xs font-bold uppercase tracking-[0.06em] text-muted transition hover:border-brand hover:text-brand"
+              >
+                Print or save as PDF
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
   )
 }

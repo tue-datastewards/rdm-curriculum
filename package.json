@@ -9,10 +9,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predev": "npm run vendor:cms",
     "build": "npm run check && tsc --noEmit && vite build && node scripts/postbuild.mjs",
+    "prebuild": "npm run vendor:cms",
     "preview": "vite preview",
     "check": "tsx scripts/check.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "vendor:cms": "node scripts/vendor-cms.mjs",
+    "vendor:brand": "node scripts/vendor-brand.mjs"
   },
   "dependencies": {
     "react": "^19.3.1",
@@ -23,6 +27,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@sveltia/cms": "^0.265.1",
     "@tailwindcss/vite": "^4.3.5",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",

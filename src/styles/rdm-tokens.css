@@ -1,0 +1,123 @@
+/* ==========================================================================
+   This is RDM — design tokens
+   Extracted from the 2026 RDM booklet (TU/e Data Stewards Team).
+   Source: https://doi.org/10.5281/zenodo.15736840
+   Print values are the default; @media screen provides responsive aliases.
+   ========================================================================== */
+
+:root {
+  /* Brand colour ---------------------------------------------------------- */
+  --rdm-purple: #85246a;
+  --rdm-purple-deep: #441137;
+  --rdm-pattern-on-light: #6e4061;
+  --rdm-pattern-on-brand: #4a133c;
+
+  /* Neutrals -------------------------------------------------------------- */
+  --rdm-ink: #000000;
+  --rdm-slate: #656161;
+  --rdm-paper: #ffffff;
+  --rdm-cover-gray: #8a8a8c;
+  --rdm-rule: #cdd3d7;
+
+  /* Semantic aliases ------------------------------------------------------ */
+  --rdm-text: var(--rdm-ink);
+  --rdm-text-muted: var(--rdm-slate);
+  --rdm-text-inverse: var(--rdm-paper);
+  --rdm-background: var(--rdm-paper);
+  --rdm-background-brand: var(--rdm-purple);
+  --rdm-background-brand-deep: var(--rdm-purple-deep);
+  --rdm-background-cover: var(--rdm-cover-gray);
+  --rdm-link: var(--rdm-purple);
+  --rdm-focus: var(--rdm-purple);
+
+  /* Typeface -------------------------------------------------------------- */
+  --rdm-font-sans: "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+  --rdm-weight-regular: 400;
+  --rdm-weight-medium: 500;
+  --rdm-weight-bold: 700;
+
+  /* Print type scale ------------------------------------------------------ */
+  --rdm-display-size: 34pt;
+  --rdm-display-leading: 40pt;
+  --rdm-display-tracking: 0;
+  --rdm-title-size: 19.5pt;
+  --rdm-title-leading: 24pt;
+  --rdm-title-tracking: 0;
+  --rdm-label-size: 11.5pt;
+  --rdm-label-leading: 14pt;
+  --rdm-label-tracking: 0.03em;
+  --rdm-label-transform: uppercase;
+  --rdm-body-size: 10pt;
+  --rdm-body-leading: 12pt;
+  --rdm-small-size: 9.5pt;
+  --rdm-small-leading: 12pt;
+  --rdm-caption-size: 8pt;
+  --rdm-caption-leading: 10pt;
+  --rdm-folio-size: 10pt;
+  --rdm-folio-leading: 12pt;
+
+  /* Spacing scale (print) ------------------------------------------------- */
+  --rdm-space-1: 4pt;
+  --rdm-space-2: 8pt;
+  --rdm-space-3: 12pt;
+  --rdm-space-4: 16pt;
+  --rdm-space-5: 24pt;
+  --rdm-space-6: 32pt;
+  --rdm-space-7: 48pt;
+  --rdm-space-8: 64pt;
+
+  /* A5 page system -------------------------------------------------------- */
+  --rdm-page-width: 148mm;
+  --rdm-page-height: 210mm;
+  --rdm-page-margin: 14mm;
+  --rdm-measure: 120mm;
+  --rdm-columns: 2;
+  --rdm-column-width: 57mm;
+  --rdm-column-gutter: 6mm;
+  --rdm-baseline: 12pt;
+  --rdm-folio-inset: 7.6mm;
+
+  /* Rules and shape ------------------------------------------------------- */
+  --rdm-rule-width: 0.5pt;
+  --rdm-rule-color: var(--rdm-rule);
+  --rdm-radius: 0;
+
+  /* Icon wallpaper -------------------------------------------------------- */
+  --rdm-pattern-columns: 6;
+  --rdm-pattern-rows: 6;
+  --rdm-pattern-icon-box: 64px;
+  --rdm-pattern-wallpaper-height: 431.46pt;
+}
+
+@media screen {
+  :root {
+    /* Responsive type aliases -------------------------------------------- */
+    --rdm-display-size: clamp(2.5rem, 6vw, 4.25rem);
+    --rdm-display-leading: 1.15;
+    --rdm-display-tracking: 0;
+    --rdm-title-size: clamp(1.75rem, 4vw, 2.5rem);
+    --rdm-title-leading: 1.15;
+    --rdm-title-tracking: 0;
+    --rdm-label-size: 0.75rem;
+    --rdm-label-leading: 1.2;
+    --rdm-label-tracking: 0.06em;
+    --rdm-body-size: 1rem;
+    --rdm-body-leading: 1.6;
+    --rdm-small-size: 0.875rem;
+    --rdm-small-leading: 1.5;
+    --rdm-caption-size: 0.75rem;
+    --rdm-caption-leading: 1.4;
+    --rdm-folio-size: 0.75rem;
+    --rdm-folio-leading: 1.2;
+
+    /* Screen spacing scale ------------------------------------------------ */
+    --rdm-space-1: 0.25rem;
+    --rdm-space-2: 0.5rem;
+    --rdm-space-3: 0.75rem;
+    --rdm-space-4: 1rem;
+    --rdm-space-5: 1.5rem;
+    --rdm-space-6: 2rem;
+    --rdm-space-7: 3rem;
+    --rdm-space-8: 4rem;
+  }
+}

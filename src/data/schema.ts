@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 /**
  * The YAML files in /data are the single source of truth. This schema is the
- * contract between the content, the site, the editor (Pages CMS) and the
+ * contract between the content, the site, the editor (Sveltia CMS) and the
  * validation script (`npm run check`).
  */
 
@@ -19,6 +19,7 @@ const httpUrl = z
 export const PHASES = ['preparatory', 'in-session'] as const
 export const STATUSES = ['complete', 'migrated', 'draft'] as const
 export const LEARNING_PATHS = ['core', 'elective', 'all'] as const
+export const LEVELS = ['introductory', 'intermediate', 'advanced'] as const
 
 export const CiloSchema = z.object({
   id: z.string().regex(idPatterns.cilo, 'CILO id must look like C1'),
@@ -40,8 +41,11 @@ export const TeachingSchema = z.object({
 export const MiloSchema = z.object({
   id: z.string().regex(idPatterns.milo, 'MILO id must look like M01.A'),
   statement: z.string().min(1),
+  learnerTitle: z.string().default(''),
+  learnerStatement: z.string().default(''),
   phase: z.enum(PHASES).default('in-session'),
   status: z.enum(STATUSES).default('complete'),
+  published: z.boolean().default(false),
   cilos: z.array(z.string()).default([]),
   content: z.string().default(''),
   teaching: TeachingSchema.default({ teacher: '', learner: '' }),
@@ -53,15 +57,23 @@ export const MiloSchema = z.object({
 export const ModuleSchema = z.object({
   id: z.string().regex(idPatterns.module, 'Module id must look like M01'),
   title: z.string().min(1),
+  summary: z.string().default(''),
   description: z.string().default(''),
+  duration: z.string().default(''),
+  level: z.enum(LEVELS).default('introductory'),
   learningPath: z.enum(LEARNING_PATHS).default('core'),
   prerequisites: z.string().default(''),
+  published: z.boolean().default(false),
   milos: z.array(MiloSchema).default([]),
 })
 
 export const CourseSchema = z.object({
   title: z.string().min(1),
   subtitle: z.string().optional(),
+  tagline: z.string().default(''),
+  audience: z.string().default(''),
+  duration: z.string().default(''),
+  contact: z.string().default(''),
   version: z.string().min(1),
   description: z.string().default(''),
 })
@@ -82,6 +94,7 @@ export type Curriculum = z.infer<typeof CurriculumSchema>
 export type Status = (typeof STATUSES)[number]
 export type Phase = (typeof PHASES)[number]
 export type LearningPath = (typeof LEARNING_PATHS)[number]
+export type Level = (typeof LEVELS)[number]
 
 export type Severity = 'error' | 'warning'
 
@@ -214,6 +227,70 @@ export function validateCurriculum(curriculum: Curriculum): ValidationIssue[] {
         message: `Module "${module.id}" has no MILOs yet.`,
         where: module.id,
       })
+    }
+  }
+
+  // Learner-facing checks: anything published must be complete enough to read.
+  for (const module of curriculum.modules.filter((item) => item.published)) {
+    if (!module.summary.trim()) {
+      issues.push({
+        severity: 'error',
+        code: 'published-module-summary',
+        message: `Published module "${module.id}" needs a summary for the learner view.`,
+        where: module.id,
+      })
+    }
+    if (!module.duration.trim()) {
+      issues.push({
+        severity: 'error',
+        code: 'published-module-duration',
+        message: `Published module "${module.id}" needs a duration for the learner view.`,
+        where: module.id,
+      })
+    }
+    if (!module.milos.some((milo) => milo.published)) {
+      issues.push({
+        severity: 'error',
+        code: 'published-module-empty',
+        message: `Published module "${module.id}" has no published MILOs.`,
+        where: module.id,
+      })
+    }
+  }
+
+  for (const { module, milo } of miloEntries.filter(({ milo }) => milo.published)) {
+    if (!milo.content.trim()) {
+      issues.push({
+        severity: 'error',
+        code: 'published-milo-content',
+        message: `MILO "${milo.id}" is published but has no content.`,
+        where: `${module.id} / ${milo.id}`,
+      })
+    }
+    if (milo.resources.length > 0 && milo.resources.every((resource) => !resource.url)) {
+      issues.push({
+        severity: 'warning',
+        code: 'published-resources',
+        message: `MILO "${milo.id}" only has resources without links; learners cannot open them.`,
+        where: `${module.id} / ${milo.id}`,
+      })
+    }
+  }
+
+  const hasPublishedMilos = miloEntries.some(({ milo }) => milo.published)
+  if (hasPublishedMilos) {
+    for (const cilo of curriculum.cilos) {
+      const served = miloEntries.some(
+        ({ milo }) => milo.published && milo.cilos.includes(cilo.id),
+      )
+      if (!served) {
+        issues.push({
+          severity: 'warning',
+          code: 'learner-uncovered-cilo',
+          message: `CILO "${cilo.id}" is not addressed by any published MILO.`,
+          where: 'data/cilos',
+        })
+      }
     }
   }
 
