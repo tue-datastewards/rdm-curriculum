@@ -10,4 +10,9 @@ const base = process.env.BASE_PATH ?? '/'
 export default defineConfig(({ command }) => ({
   base: command === 'build' ? base : '/',
   plugins: [react(), tailwindcss()],
+  build: {
+    // A single bundle is intentional: releasing a new deploy removes the old
+    // hashed chunks, so lazy routes could 404 for readers with an open tab.
+    chunkSizeWarningLimit: 700,
+  },
 }))
