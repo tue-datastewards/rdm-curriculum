@@ -66,9 +66,9 @@ Arial, sans-serif. Use the exact typeface only on machines where it is licensed.
 
 ## 7. Course content and source templates
 
-The course content and the `.docx` files in `word/` come from the TU/e Research
-Data Management curriculum. They remain TU/e material and are not licensed for
-external reuse by this repository.
+The course content comes from the TU/e Research Data Management curriculum.
+The original source templates are not included in this repository. The content
+remains TU/e material and is not licensed for external reuse by this repository.
 
 ## 8. QR code destination
 

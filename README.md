@@ -9,8 +9,8 @@ The design system is the **“This is RDM”** brand kit from the TU/e Data Stew
 Team, used with permission. See [`ATTRIBUTION.md`](ATTRIBUTION.md) and
 [`LICENSES.md`](LICENSES.md).
 
-The repository is public. That includes the `word/` source templates and internal
-editorial notes; see [Visibility](#visibility).
+The repository is public. That includes the internal editorial notes in `data/`;
+see [Visibility](#visibility).
 
 ## Views
 
@@ -181,9 +181,9 @@ The repository is public, and the published site is public. Two consequences:
 
 - `/curriculum` is reachable by anyone who knows the URL. It is `noindex` and
   unlinked, but it is not access-controlled.
-- The `word/` templates and editorial notes in `data/` are readable in the
-  repository. Remove or relocate anything that should not be public **before**
-  the first push; git history is not removed by deleting files later.
+- The internal editorial notes in `data/` are readable in the repository. Remove
+  or relocate anything that should not be public **before** the first push; git
+  history is not removed by deleting files later.
 
 ## Project structure
 

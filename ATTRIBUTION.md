@@ -42,10 +42,10 @@ paths are unchanged.
 
 ## Course content
 
-Course and module intended learning outcomes, instructional design content and
-the original instructional design templates in `word/` come from the TU/e
-Research Data Management curriculum team. They remain TU/e material and are not
-licensed for external reuse by this repository.
+Course and module intended learning outcomes and instructional design content
+come from the TU/e Research Data Management curriculum team. The original Word
+templates are not stored in this repository. The content remains TU/e material
+and is not licensed for external reuse by this repository.
 
 ## Typeface
 
