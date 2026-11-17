@@ -113,6 +113,34 @@ export function CurriculumPage() {
         </div>
       </header>
 
+      <section
+        aria-labelledby="editing-heading"
+        className="flex flex-col gap-5 border border-rule bg-wash p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6"
+      >
+        <div className="max-w-2xl">
+          <p id="editing-heading" className="rdm-label text-brand">
+            Editing this content
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-ink">
+            Sign in at Pages CMS, edit the form, and switch “Published to learners”
+            when a section is ready. Saves deploy in about a minute.
+          </p>
+        </div>
+        <div className="flex shrink-0 flex-wrap gap-2">
+          <Link to="/curriculum/guide" className="btn btn-outline">
+            Editing guide
+          </Link>
+          <a
+            href="https://app.pagescms.org"
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-primary"
+          >
+            Pages CMS ↗
+          </a>
+        </div>
+      </section>
+
       <section aria-label="Summary">
         <dl className="grid grid-cols-2 gap-px border border-rule bg-rule sm:grid-cols-4">
           {[

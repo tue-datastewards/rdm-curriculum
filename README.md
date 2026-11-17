@@ -22,6 +22,7 @@ see [Visibility](#visibility).
 | `/about` | Learners | Audience, progress, booklet, credits |
 | `/curriculum` | Staff | Alignment matrix, content status, coverage, CSV export |
 | `/curriculum/cilos/:id` | Staff | Every MILO addressing a course outcome, published or not |
+| `/curriculum/guide` | Staff | Editing instructions for the curriculum team |
 
 Learner views show **published content only**, use learner titles and statements
 where editors provided them, and never show teacher activities, internal notes or
@@ -155,7 +156,8 @@ Setup, once per project:
    **Modules** sections appear.
 4. Add the remaining editors; each signs in with their own GitHub account.
 
-`EDITING.md` is the one-page guide for non-technical editors.
+`EDITING.md` is the one-page guide for non-technical editors. The same guide is
+rendered in the staff view at `/curriculum/guide`, next to the alignment matrix.
 
 ## Deployment
 

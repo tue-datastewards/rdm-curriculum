@@ -195,6 +195,90 @@
   margin-top: 0.9rem;
 }
 
+.md h1 {
+  font-size: 2rem;
+  line-height: 1.15;
+  font-weight: var(--rdm-weight-bold);
+  letter-spacing: 0;
+}
+
+.md h2 {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rdm-rule);
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: var(--rdm-weight-bold);
+}
+
+.md h3 {
+  margin-top: 1.75rem;
+  font-size: 1.125rem;
+  line-height: 1.35;
+  font-weight: var(--rdm-weight-bold);
+}
+
+.md h4 {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: var(--rdm-weight-bold);
+}
+
+.md h2 + *,
+.md h3 + *,
+.md h4 + * {
+  margin-top: 0.6rem;
+}
+
+.md hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid var(--rdm-rule);
+}
+
+.md-table-wrap {
+  margin-top: 1.5rem;
+  overflow-x: auto;
+  border: 1px solid var(--rdm-rule);
+}
+
+.md table {
+  width: 100%;
+  min-width: 30rem;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.md thead {
+  background: var(--color-wash);
+}
+
+.md th {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--rdm-rule);
+  text-align: left;
+  font-weight: var(--rdm-weight-bold);
+  vertical-align: bottom;
+}
+
+.md td {
+  padding: 0.55rem 0.75rem;
+  border-top: 1px solid var(--rdm-rule);
+  vertical-align: top;
+}
+
+.md th + th,
+.md td + td {
+  border-left: 1px solid var(--rdm-rule);
+}
+
+.md td code,
+.md th code {
+  white-space: nowrap;
+}
+
 .md ul {
   list-style: none;
   padding-left: 0;

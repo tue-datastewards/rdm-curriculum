@@ -41,6 +41,9 @@ export function StaffLayout() {
             <NavLink to="/curriculum" end className={navClass}>
               Alignment
             </NavLink>
+            <NavLink to="/curriculum/guide" className={navClass}>
+              Guide
+            </NavLink>
             <Link to="/" className="text-sm text-muted transition hover:text-brand">
               <span className="sm:hidden">Course</span>
               <span className="hidden sm:inline">Learner site</span>

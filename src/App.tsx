@@ -9,6 +9,7 @@ import { AboutPage } from './pages/AboutPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { CurriculumPage } from './staff/CurriculumPage'
 import { StaffCiloPage } from './staff/StaffCiloPage'
+import { EditingGuidePage } from './staff/EditingGuidePage'
 
 function ScrollBehaviour() {
   const { pathname, hash } = useLocation()
@@ -42,6 +43,7 @@ export default function App() {
 
         <Route path="curriculum" element={<StaffLayout />}>
           <Route index element={<CurriculumPage />} />
+          <Route path="guide" element={<EditingGuidePage />} />
           <Route path="cilos/:ciloId" element={<StaffCiloPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
