@@ -26,7 +26,7 @@ milos:
       - C1
       - C2
       - C5
-    content: >
+    content: >-
       Research data is the evidence your project is built on: measurements,
       code, documents, samples, and the files you create along the way. When it
       is well managed, your work is easier to verify, reuse and build on. When
@@ -49,6 +49,9 @@ milos:
       a folder full of `final_v7.xlsx`. A data management plan is how you avoid
       them. It is more than a bureaucratic document — it is the planning that
       keeps your data usable.
+
+
+      ## Data Management Plan
 
 
       "All plans are useless, but planning is everything."
