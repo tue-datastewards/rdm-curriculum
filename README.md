@@ -14,6 +14,9 @@ see [Visibility](#visibility).
 
 ## Licence
 
+This project uses separate licences for code and content. No single licence
+covers the whole repository.
+
 | Material | Licence |
 | --- | --- |
 | Site code | [MIT](LICENSE) |
@@ -21,10 +24,41 @@ see [Visibility](#visibility).
 | Brand kit tokens and assets | CC BY-NC-SA 4.0 |
 | TU/e logo, Freepik icons, Avenir Next | Separate terms; excluded from the open licences |
 
-Course content © 2026 Eindhoven University of Technology, licensed CC BY 4.0.
-Site code © 2026 Eindhoven University of Technology, licensed MIT. The brand
-assets are excluded from both licences. See [`LICENSES.md`](LICENSES.md) for the
-full scope and third-party notices.
+### Code — MIT
+
+The site code (React/TypeScript, scripts and build configuration) is licensed
+under the [MIT License](LICENSE). You may use, copy, modify, merge, publish,
+distribute, sublicense and sell the code, provided the copyright notice and
+permission notice are retained.
+
+Copyright © 2026 Eindhoven University of Technology.
+
+### Content — CC BY 4.0
+
+Course content in `data/`, the site copy and the documentation are licensed
+under [Creative Commons Attribution 4.0 International](LICENSE-CONTENT.md).
+You may share and adapt the material, including commercially, provided you:
+
+- give appropriate credit;
+- link to the licence;
+- indicate whether changes were made.
+
+Suggested attribution:
+
+> “TU/e RDM Curriculum” © 2026 Eindhoven University of Technology (TU/e Data
+> Stewards Team), licensed CC BY 4.0. Source:
+> <https://github.com/tue-datastewards/rdm-curriculum>. Changes indicated.
+
+### Excluded material
+
+The MIT and CC BY 4.0 licences do not cover:
+
+- the brand kit tokens and assets, which remain CC BY-NC-SA 4.0;
+- the TU/e logo and favicon, which are trademarks;
+- the Freepik-derived icons and wallpaper, which follow Freepik's terms;
+- Avenir Next, which is commercial and not distributed.
+
+See [`LICENSES.md`](LICENSES.md) for the full scope and third-party notices.
 
 ## Views
 
