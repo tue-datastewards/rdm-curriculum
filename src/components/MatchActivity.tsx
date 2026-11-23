@@ -198,11 +198,13 @@ function RoundBoard({
                   }}
                   onDragEnd={() => setOverProblem(null)}
                   className={cn(
-                    'w-full border px-3 py-2.5 text-left text-sm leading-snug transition',
+                    'w-full border px-3 py-2.5 text-left text-sm leading-snug transition select-none',
                     selected === solutionIndex
                       ? 'border-brand bg-brand text-paper'
                       : 'border-rule bg-paper text-ink hover:border-brand hover:bg-wash',
-                    checked && 'cursor-default opacity-70',
+                    checked
+                      ? 'cursor-default opacity-70'
+                      : 'cursor-grab active:cursor-grabbing',
                   )}
                 >
                   {round.pairs[solutionIndex].solution}
@@ -231,6 +233,41 @@ function RoundBoard({
               return (
                 <li key={problemIndex}>
                   <div
+                    onClick={() => {
+                      if (checked) return
+                      if (selected !== null) place(problemIndex, selected)
+                      else if (placement === null) {
+                        announce('Choose a practice first, then choose this problem.')
+                      }
+                    }}
+                    onDragOver={(event) => {
+                      if (checked) return
+                      event.preventDefault()
+                      event.dataTransfer.dropEffect = 'move'
+                      setOverProblem(problemIndex)
+                    }}
+                    onDragLeave={(event) => {
+                      const next = event.relatedTarget as Node | null
+                      if (next && event.currentTarget.contains(next)) return
+                      setOverProblem((current) =>
+                        current === problemIndex ? null : current,
+                      )
+                    }}
+                    onDrop={(event) => {
+                      event.preventDefault()
+                      setOverProblem(null)
+                      if (checked) return
+                      const solutionIndex = Number(
+                        event.dataTransfer.getData('text/plain'),
+                      )
+                      if (
+                        Number.isInteger(solutionIndex) &&
+                        solutionIndex >= 0 &&
+                        solutionIndex < round.pairs.length
+                      ) {
+                        place(problemIndex, solutionIndex)
+                      }
+                    }}
                     className={cn(
                       'border p-4 transition',
                       checked && result === true
@@ -238,6 +275,8 @@ function RoundBoard({
                         : checked && result === false
                           ? 'border-danger'
                           : 'border-rule',
+                      !checked && 'cursor-pointer hover:border-brand',
+                      overProblem === problemIndex && 'border-brand bg-wash',
                     )}
                   >
                     <div className="flex items-start gap-3">
@@ -249,39 +288,6 @@ function RoundBoard({
 
                     <button
                       type="button"
-                      onClick={() => {
-                        if (checked) return
-                        if (selected !== null) place(problemIndex, selected)
-                        else if (placement === null) {
-                          announce('Choose a practice first, then choose this problem.')
-                        }
-                      }}
-                      onDragOver={(event) => {
-                        if (checked) return
-                        event.preventDefault()
-                        event.dataTransfer.dropEffect = 'move'
-                        setOverProblem(problemIndex)
-                      }}
-                      onDragLeave={() =>
-                        setOverProblem((current) =>
-                          current === problemIndex ? null : current,
-                        )
-                      }
-                      onDrop={(event) => {
-                        event.preventDefault()
-                        setOverProblem(null)
-                        if (checked) return
-                        const solutionIndex = Number(
-                          event.dataTransfer.getData('text/plain'),
-                        )
-                        if (
-                          Number.isInteger(solutionIndex) &&
-                          solutionIndex >= 0 &&
-                          solutionIndex < round.pairs.length
-                        ) {
-                          place(problemIndex, solutionIndex)
-                        }
-                      }}
                       aria-label={`Problem ${problemIndex + 1}: ${sentence(
                         pair.problem,
                       )} ${
@@ -300,6 +306,8 @@ function RoundBoard({
                         overProblem === problemIndex && 'border-brand bg-wash-strong',
                         checked && result === true && 'border-success bg-paper',
                         checked && result === false && 'border-danger bg-paper',
+                        !checked && 'cursor-pointer',
+                        checked && 'cursor-default',
                       )}
                     >
                       {placement === null
@@ -310,25 +318,36 @@ function RoundBoard({
                     {placement !== null && !checked && (
                       <button
                         type="button"
-                        onClick={() => remove(problemIndex)}
-                        className="mt-2 text-[11px] font-bold uppercase tracking-[0.06em] text-muted underline decoration-1 underline-offset-2 hover:text-brand"
+                        onClick={(event) => {
+                          event.stopPropagation()
+                          remove(problemIndex)
+                        }}
+                        className="mt-2 cursor-pointer text-[11px] font-bold uppercase tracking-[0.06em] text-muted underline decoration-1 underline-offset-2 hover:text-brand"
                       >
                         Remove
                       </button>
                     )}
 
                     {checked && result !== undefined && (
-                      <div className="mt-3 border-t border-rule pt-3 text-xs leading-relaxed">
-                        <p className={result ? 'font-bold text-success' : 'font-bold text-danger'}>
+                      <div className="mt-3 border-t border-rule pt-4">
+                        <p
+                          className={cn(
+                            'text-sm font-bold',
+                            result ? 'text-success' : 'text-danger',
+                          )}
+                        >
                           {result ? '✓ Correct' : '✗ Not this one'}
                         </p>
                         {!result && (
-                          <p className="mt-1">
-                            Correct practice: {round.pairs[problemIndex].solution}
+                          <p className="mt-1.5 text-sm">
+                            <span className="font-bold">Correct practice:</span>{' '}
+                            {round.pairs[problemIndex].solution}
                           </p>
                         )}
                         {pair.explanation && (
-                          <p className="mt-1 text-muted">{pair.explanation}</p>
+                          <p className="mt-2 max-w-prose text-base leading-relaxed text-muted">
+                            {pair.explanation}
+                          </p>
                         )}
                       </div>
                     )}
@@ -417,7 +436,7 @@ export function MatchActivity({
 
   return (
     <section
-      className="mt-8 max-w-3xl"
+      className="mt-8 max-w-4xl"
       aria-labelledby={headingId}
       aria-describedby={activity.instructions ? instructionsId : undefined}
     >
@@ -446,7 +465,7 @@ export function MatchActivity({
                   solved[index] ? ' (complete)' : ''
                 }`}
                 className={cn(
-                  'border px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.06em] transition',
+                  'cursor-pointer border px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.06em] transition',
                   index === roundIndex
                     ? 'border-brand bg-brand text-paper'
                     : 'border-rule text-muted hover:border-brand hover:text-brand',
