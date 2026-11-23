@@ -227,6 +227,52 @@ content:
                 label: Learner's activity
                 type: text
                 description: Markdown is supported. Shown as “Your task”.
+          - name: activity
+            label: Matching activity
+            type: object
+            fields:
+              - name: title
+                label: Activity title
+                type: string
+                description: Optional. Defaults to “Match the problem to the practice”.
+              - name: instructions
+                label: Instructions
+                type: text
+                description: Shown above the cards. Keep the mechanics short.
+              - name: rounds
+                label: Rounds
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{fields.title}"
+                fields:
+                  - name: title
+                    label: Round title
+                    type: string
+                  - name: pairs
+                    label: Problem–practice pairs
+                    type: object
+                    list:
+                      collapsible:
+                        collapsed: true
+                        summary: "{fields.problem}"
+                    fields:
+                      - name: problem
+                        label: Problem card
+                        type: string
+                        required: true
+                        description: Keep this to one short sentence.
+                      - name: solution
+                        label: Practice card
+                        type: string
+                        required: true
+                        description: Keep this to one short sentence.
+                      - name: explanation
+                        label: Explanation
+                        type: text
+                        required: true
+                        description: Shown after the learner checks their answers.
           - name: resources
             label: Resources
             type: object

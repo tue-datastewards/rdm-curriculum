@@ -96,6 +96,14 @@ milos:
         url: https://www.knaw.nl/…
     assessment: |
       Shown as “Check your understanding”.
+    activity:                  # optional matching game
+      title: Match the problem to the practice
+      rounds:
+        - title: Plan and document
+          pairs:
+            - problem: Your project arrives undocumented.
+              solution: Write an inventory and ask for a handover.
+              explanation: Full feedback shown after checking.
     notes: Internal editorial note (never shown to learners).
 ```
 
@@ -128,6 +136,10 @@ styling uses the brand kit's square bullets and purple links.
   `localStorage` (`rdm-curriculum:progress:v1`). No account, no server, no
   tracking. “Continue where you left off” uses the last visited module/section;
   progress can be reset on `/about`.
+- **Matching activity** — a MILO can include a card-matching game authored in
+  YAML. Learners drag a practice onto a problem, or tap a practice and then a
+  problem. Answers are checked with per-pair feedback, and completing every
+  round marks the section done.
 - **Search** — a build-time index over published modules and sections, opened
   with the header button or `/`. Results respect published flags.
 - **Print / PDF** — module pages have a print stylesheet with the brand rules,

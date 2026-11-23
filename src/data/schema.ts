@@ -38,6 +38,23 @@ export const TeachingSchema = z.object({
   learner: z.string().default(''),
 })
 
+export const MatchPairSchema = z.object({
+  problem: z.string().trim().min(1),
+  solution: z.string().trim().min(1),
+  explanation: z.string().trim().default(''),
+})
+
+export const MatchRoundSchema = z.object({
+  title: z.string().trim().default(''),
+  pairs: z.array(MatchPairSchema).min(2).max(10),
+})
+
+export const MatchActivitySchema = z.object({
+  title: z.string().trim().default(''),
+  instructions: z.string().trim().default(''),
+  rounds: z.array(MatchRoundSchema).min(1),
+})
+
 export const MiloSchema = z.object({
   id: z.string().regex(idPatterns.milo, 'MILO id must look like M01.A'),
   statement: z.string().min(1),
@@ -51,6 +68,7 @@ export const MiloSchema = z.object({
   teaching: TeachingSchema.default({ teacher: '', learner: '' }),
   resources: z.array(ResourceSchema).default([]),
   assessment: z.string().default(''),
+  activity: MatchActivitySchema.optional(),
   notes: z.string().optional(),
 })
 
@@ -87,6 +105,9 @@ export const CurriculumSchema = z.object({
 export type Cilo = z.infer<typeof CiloSchema>
 export type Resource = z.infer<typeof ResourceSchema>
 export type Teaching = z.infer<typeof TeachingSchema>
+export type MatchPair = z.infer<typeof MatchPairSchema>
+export type MatchRound = z.infer<typeof MatchRoundSchema>
+export type MatchActivity = z.infer<typeof MatchActivitySchema>
 export type Milo = z.infer<typeof MiloSchema>
 export type Module = z.infer<typeof ModuleSchema>
 export type Course = z.infer<typeof CourseSchema>
@@ -112,6 +133,24 @@ function duplicates<T>(items: T[], key: (item: T) => string): string[] {
     const value = key(item)
     if (seen.has(value)) dupes.add(value)
     seen.add(value)
+  }
+  return [...dupes]
+}
+
+/** Compare matching-card text without case or whitespace noise. */
+function normalizeMatchText(value: string): string {
+  return value.trim().toLowerCase().replace(/\s+/g, ' ')
+}
+
+/** Duplicate display values, compared without case or whitespace noise. */
+function duplicateTexts<T>(items: T[], text: (item: T) => string): string[] {
+  const seen = new Set<string>()
+  const dupes = new Set<string>()
+  for (const item of items) {
+    const value = text(item)
+    const key = normalizeMatchText(value)
+    if (seen.has(key)) dupes.add(value)
+    seen.add(key)
   }
   return [...dupes]
 }
@@ -203,6 +242,50 @@ export function validateCurriculum(curriculum: Curriculum): ValidationIssue[] {
         code: 'incomplete-milo',
         message: `MILO "${milo.id}" is missing: ${missing.join(', ')}.`,
         where: `${module.id} / ${milo.id}`,
+      })
+    }
+
+    if (milo.activity) {
+      milo.activity.rounds.forEach((round, roundIndex) => {
+        const roundLabel = round.title || `round ${roundIndex + 1}`
+        const where = `${module.id} / ${milo.id} / ${roundLabel}`
+
+        if (round.pairs.length > 6) {
+          issues.push({
+            severity: 'warning',
+            code: 'activity-round-size',
+            message: `Matching activity "${roundLabel}" has ${round.pairs.length} pairs; more than 6 is hard to use on a phone.`,
+            where,
+          })
+        }
+
+        for (const problem of duplicateTexts(round.pairs, (pair) => pair.problem)) {
+          issues.push({
+            severity: 'error',
+            code: 'activity-duplicate-problem',
+            message: `Matching activity "${roundLabel}" repeats the problem "${problem}".`,
+            where,
+          })
+        }
+
+        for (const solution of duplicateTexts(round.pairs, (pair) => pair.solution)) {
+          issues.push({
+            severity: 'error',
+            code: 'activity-duplicate-solution',
+            message: `Matching activity "${roundLabel}" repeats the practice "${solution}".`,
+            where,
+          })
+        }
+
+        const unexplained = round.pairs.filter((pair) => !pair.explanation).length
+        if (unexplained > 0) {
+          issues.push({
+            severity: 'warning',
+            code: 'activity-missing-explanation',
+            message: `Matching activity "${roundLabel}" has ${unexplained} pair(s) without an explanation; learners get no feedback for them.`,
+            where,
+          })
+        }
       })
     }
   }
