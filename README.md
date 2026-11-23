@@ -32,7 +32,7 @@ marked `noindex`, but it is publicly reachable.
 ## Quick start
 
 ```bash
-npm install        # Node 22+
+npm install        # Node 26+
 npm run dev        # http://localhost:5173
 npm run check      # validate data (errors block, warnings print)
 npm run build      # validate + typecheck + static build into dist/
