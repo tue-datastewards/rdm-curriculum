@@ -62,9 +62,19 @@ export function StaffLayout() {
             {curriculum.course.title} · {curriculum.course.version}. Staff view,
             not linked from the learner navigation.
           </p>
-          <Link to="/" className="hover:text-brand hover:underline">
-            Learner site
-          </Link>
+          <div className="flex gap-4">
+            <a
+              href="https://github.com/tue-datastewards/rdm-curriculum"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-brand hover:underline"
+            >
+              GitHub ↗
+            </a>
+            <Link to="/" className="hover:text-brand hover:underline">
+              Learner site
+            </Link>
+          </div>
         </div>
       </footer>
     </div>
