@@ -144,10 +144,21 @@ export function AboutPage() {
           <p className="mt-3 text-sm leading-relaxed text-muted">
             Course content and intended learning outcomes: TU/e Research Data
             Management curriculum team, Library and Information Services.
+            Licensed CC BY 4.0.
           </p>
           <p className="mt-4 text-sm leading-relaxed text-muted">
-            Design system: “This is RDM” brand kit, TU/e Data Stewards Team,
-            derived from the 2026 RDM booklet. Licensed CC BY-NC-SA 4.0.
+            Site code licensed MIT. Design system: “This is RDM” brand kit, TU/e
+            Data Stewards Team, derived from the 2026 RDM booklet. Licensed
+            CC BY-NC-SA 4.0. See{" "}
+            <a
+              href="https://github.com/tue-datastewards/rdm-curriculum/blob/main/LICENSES.md"
+              target="_blank"
+              rel="noreferrer"
+              className="underline hover:text-brand"
+            >
+              licences and attribution
+            </a>
+            .
           </p>
           <p className="mt-4 text-sm leading-relaxed text-muted">
             TU/e logo used for internal TU/e communication. Avenir Next is a

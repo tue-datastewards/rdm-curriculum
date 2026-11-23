@@ -1,15 +1,5 @@
 # Attribution
 
-## Public use permission
-
-This course site is published publicly. Public use of the TU/e logo and the
-Freepik-derived brand-kit icons on this site is authorised by the TU/e brand
-owner. The written confirmation is held with the project records; record its date
-and reference here.
-
-The permission applies to this site. It does not license the assets for other
-projects or for redistribution elsewhere.
-
 ## Design system
 
 This site uses the **“This is RDM” brand kit**, version 1.0.0, maintained by the
@@ -43,9 +33,21 @@ paths are unchanged.
 ## Course content
 
 Course and module intended learning outcomes and instructional design content
-come from the TU/e Research Data Management curriculum team. The original Word
-templates are not stored in this repository. The content remains TU/e material
-and is not licensed for external reuse by this repository.
+come from the TU/e Research Data Management curriculum team, Library and
+Information Services.
+
+- Copyright: © 2026 Eindhoven University of Technology
+- Licence: CC BY 4.0 (see [`LICENSE-CONTENT.md`](LICENSE-CONTENT.md))
+- Preferred attribution: “TU/e RDM Curriculum” © 2026 Eindhoven University of
+  Technology (TU/e Data Stewards Team), licensed CC BY 4.0. Source:
+  <https://github.com/tue-datastewards/rdm-curriculum>. Changes indicated.
+
+The original Word templates are not stored in this repository.
+
+## Site code
+
+Site code © 2026 Eindhoven University of Technology, licensed MIT (see
+[`LICENSE`](LICENSE)).
 
 ## Content sources
 

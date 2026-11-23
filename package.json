@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "description": "Static site for the RDM curriculum's CILO/MILO alignment and instructional design.",
+  "license": "MIT",
   "engines": {
     "node": ">=26"
   },
