@@ -113,6 +113,14 @@ export function SiteLayout() {
               <Link to="/about" className="text-paper/90 hover:text-paper hover:underline">
                 About
               </Link>
+              <a
+                href="https://github.com/tue-datastewards/rdm-curriculum"
+                target="_blank"
+                rel="noreferrer"
+                className="text-paper/90 hover:text-paper hover:underline"
+              >
+                GitHub ↗
+              </a>
               <Link
                 to="/curriculum"
                 className="text-paper/70 hover:text-paper hover:underline"
