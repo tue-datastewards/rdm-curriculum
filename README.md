@@ -164,9 +164,12 @@ rendered in the staff view at `/curriculum/guide`, next to the alignment matrix.
 The site is a static build deployed with GitHub Actions:
 
 1. Create a public repository and push this project to `main`.
-2. In **Settings → Pages**, set **Source** to **GitHub Actions**.
-3. The workflow in `.github/workflows/deploy.yml` builds and deploys on every
-   push.
+2. In **Settings → Pages**, set **Source** to **Deploy from a branch**, branch
+   `gh-pages`, folder `/ (root)`. If the organisation's default workflow
+   permissions are read-only, allow read and write under
+   **Settings → Actions → General → Workflow permissions**.
+3. The workflow in `.github/workflows/deploy.yml` builds the site and pushes
+   `dist/` to `gh-pages` on every push to `main`.
 4. The site is published at `https://<owner>.github.io/<repo>/`.
 
 `BASE_PATH` is derived from the repository name. Override it in the workflow if:
@@ -176,6 +179,20 @@ The site is a static build deployed with GitHub Actions:
 
 `scripts/postbuild.mjs` writes `404.html` for client-side routes and `.nojekyll`
 so GitHub Pages does not run Jekyll over the build.
+
+### Pull request previews
+
+`.github/workflows/preview.yml` builds each pull request and publishes it to
+`https://<owner>.github.io/<repo>/pr-preview/pr-<number>/`, leaving one sticky
+comment on the PR with the link. New pushes update the preview; closing the PR
+deletes it. The build runs the same validation and type-check as a release, so
+invalid data fails the preview check instead of publishing.
+
+Previews are public and include the staff views and draft modules. They are
+marked `noindex`, but that is not access control. GitHub Pages only serves
+`404.html` from the site root, so refreshing a deep link inside a preview
+redirects to that preview's home page rather than the production site. Previews
+for pull requests from forks are not supported.
 
 ## Visibility
 

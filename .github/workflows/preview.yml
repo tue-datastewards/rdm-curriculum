@@ -1,0 +1,48 @@
+name: PR preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  # Marks the build as a preview so postbuild.mjs keeps it out of search.
+  PREVIEW: '1'
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        if: github.event.action != 'closed'
+        with:
+          node-version: 22
+          cache: npm
+
+      - if: github.event.action != 'closed'
+        run: npm ci
+
+      # Runs the same data validation and type-check as a release, so a broken
+      # PR fails its check instead of publishing a preview.
+      - if: github.event.action != 'closed'
+        run: npm run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.pull_request.number }}/
+
+      # Deploys on open/reopen/synchronize, removes pr-preview/pr-<n>/ on close,
+      # and keeps a single sticky comment with the preview URL.
+      - uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: dist
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto
