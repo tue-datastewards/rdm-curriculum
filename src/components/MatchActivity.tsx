@@ -198,7 +198,7 @@ function RoundBoard({
                   }}
                   onDragEnd={() => setOverProblem(null)}
                   className={cn(
-                    'w-full border px-3 py-2.5 text-left text-sm leading-snug transition select-none',
+                    'w-full border px-3 py-2.5 text-left text-base leading-snug transition select-none',
                     selected === solutionIndex
                       ? 'border-brand bg-brand text-paper'
                       : 'border-rule bg-paper text-ink hover:border-brand hover:bg-wash',
@@ -212,7 +212,7 @@ function RoundBoard({
               </li>
             ))}
             {remaining.length === 0 && (
-              <li className="border border-dashed border-rule px-3 py-3 text-sm text-muted">
+              <li className="border border-dashed border-rule px-3 py-3 text-base text-muted">
                 All practices are placed.
               </li>
             )}
@@ -283,7 +283,7 @@ function RoundBoard({
                       <span className="mt-0.5 font-mono text-xs font-bold text-brand">
                         {String(problemIndex + 1).padStart(2, '0')}
                       </span>
-                      <p className="text-sm font-medium leading-snug">{pair.problem}</p>
+                      <p className="text-base font-medium leading-snug">{pair.problem}</p>
                     </div>
 
                     <button
@@ -296,7 +296,7 @@ function RoundBoard({
                           : ''
                       }${slotLabel}`}
                       className={cn(
-                        'mt-3 w-full border border-dashed px-3 py-2.5 text-left text-sm leading-snug transition',
+                        'mt-3 w-full border border-dashed px-3 py-2.5 text-left text-base leading-snug transition',
                         placement === null
                           ? 'border-rule text-muted'
                           : 'border-brand bg-wash font-bold text-brand',
@@ -332,14 +332,14 @@ function RoundBoard({
                       <div className="mt-3 border-t border-rule pt-4">
                         <p
                           className={cn(
-                            'text-sm font-bold',
+                            'text-base font-bold',
                             result ? 'text-success' : 'text-danger',
                           )}
                         >
                           {result ? '✓ Correct' : '✗ Not this one'}
                         </p>
                         {!result && (
-                          <p className="mt-1.5 text-sm">
+                          <p className="mt-1.5 text-base">
                             <span className="font-bold">Correct practice:</span>{' '}
                             {round.pairs[problemIndex].solution}
                           </p>
@@ -369,7 +369,7 @@ function RoundBoard({
           {primaryLabel}
         </button>
         {checked && results && (
-          <p className="text-sm">
+          <p className="text-base">
             <span className="font-bold">{score}</span> of {round.pairs.length} correct.
           </p>
         )}
