@@ -26,35 +26,36 @@ milos:
       - C1
       - C2
       - C5
-    content: >-
-      Research data is the evidence your project is built on: measurements,
-      code, documents, samples, and the files you create along the way. When it
-      is well managed, your work is easier to verify, reuse and build on. When
-      it is not, data gets lost, misunderstood, or becomes impossible to share.
+    content: |
+      Research data is the evidence your project is built on: measurements, code, documents, samples, and the files you create along the way. When it is well managed, your work is easier to verify, reuse and build on. When it is not, data gets lost, misunderstood, or becomes impossible to share.
 
+      ## What counts as data
 
-      There are three common reasons to manage it well:
+      It is tempting to think of data as spreadsheets and measurements. A more useful definition: **data is anything you use as evidence for a claim**. That includes samples and specimens, interview recordings, code, notebooks, images, survey instruments and the files you generate along the way.
 
+      Data is also *made*, not simply given. Someone chose the instrument, the categories, the time window and the file format. That context is what makes the data interpretable later — and it is exactly what a data management plan captures.
 
-      - **Public good** — well-managed data can be reused by other researchers.
+      ## What data management covers
 
-      - **Obligations** — TU/e policy, funders, publishers and the Netherlands
-      Code of Conduct for Research Integrity all expect it.
+      Research data management is how you **collect, organise, document, store, share and preserve** data during a project and after it ends. The decisions look different at each stage, but they are the same decisions: before you collect, while you work, and when the project closes.
 
-      - **Future you** — you will be the first person who needs to understand
-      your files six months from now.
+      ## Why manage it well
 
+      There are three common reasons to manage data well:
 
-      Most data problems are ordinary: a lost laptop, a departing PhD candidate,
-      a folder full of `final_v7.xlsx`. A data management plan is how you avoid
-      them. It is more than a bureaucratic document — it is the planning that
-      keeps your data usable.
+      - **Public good** — well-managed data can be reused by other researchers, and reuse avoids repeating costly data collection.
+      - **Obligations** — the [TU/e RDM Policy](https://doi.org/10.5281/zenodo.15309046), funders, publishers and the Netherlands Code of Conduct for Research Integrity all expect it. Personal data brings legal obligations too.
+      - **Future you** — you will be the first person who needs to understand your files six months from now. The same goes for your successor, your collaborators and reviewers.
 
+      Good management also protects data from loss and corruption, makes verification and reproducibility possible, and gives data the status of a research output in its own right.
+
+      ## What it costs when you don't plan
+
+      Most data problems are ordinary: a lost laptop, a departing PhD candidate, a folder full of `final_v7.xlsx`. Estimates of time lost to clearing up data problems vary widely — some claims that researchers spend 80% of their time on data handling are overstated, but conservative estimates still put it at 40–50%. The exact number matters less than the pattern: unclear file names, undocumented steps and missing context cost time in every project.
 
       ## Data Management Plan
 
-
-      "All plans are useless, but planning is everything."
+      A data management plan is how you avoid those problems. It is more than a bureaucratic document — it records the decisions you have made about your data and the ones you still need to make. It is not a prediction: start with what you know and revisit the plan as the project develops.
     teaching:
       teacher: >
         Prepare learning materials about defining research data and research
@@ -72,7 +73,9 @@ milos:
         Then write down two benefits good data management would bring to your
         own project.
     notes: CILO codes normalized from "CLO1, CLO2, CLO5" in the source document.
-      Resources and assessment are marked TBD in the source.
+      Resources and assessment are marked TBD in the source. The opening section
+      was extended from the Data Stewardship Knowledgebase (CC BY 4.0) for this
+      revision; the "80% of research time" claim was deliberately softened.
   - id: M01.B
     statement: Describe researcher responsibilities under TU/e policy, research
       integrity frameworks, requirements and funders and publishers.
@@ -80,11 +83,36 @@ milos:
     learnerStatement: Describe the responsibilities that apply to your research
       data, before, during and after your project.
     phase: in-session
-    status: draft
-    published: false
+    status: complete
+    published: true
     cilos:
       - C2
       - C3
+    content: |
+      Requirements are easier to handle when you place them on the timeline of your project.
+
+      ## Before you collect
+
+      - **A data management plan** — required by many funders, and part of the TU/e PhD process through Hora Finita. Research Cockpit holds the template and guidance.
+      - **Ethics and privacy review** — if your data involves people, ethics approval and a privacy assessment come before collection starts. Anonymisation and pseudonymisation are design choices, not clean-up steps.
+      - **Agreements and licences** — who owns the data, what you may do with third-party data, and how you will licence your own outputs.
+
+      ## While you work
+
+      - Store data on approved TU/e systems, not on a laptop or a personal cloud account.
+      - Document what you collect and how you process it.
+      - Control access: know who can see which files, and why.
+      - Keep personal and sensitive data separate from the rest of the project.
+
+      ## After the project
+
+      - Deposit outputs in a repository, with a licence and persistent identifiers.
+      - Respect retention periods and agreements: delete what must be deleted, keep what must be kept.
+      - Leave documentation that lets someone else — including your successor — understand the data.
+
+      ## Who can help
+
+      Your **data steward**, the **privacy officer**, the **ethics committee**, **legal and IP support**, and the **library's RDM support**. Asking early is normal; asking after collection is expensive.
     teaching:
       teacher: >
         Module: what funders and TU/e expect from you — presented along the
@@ -92,21 +120,31 @@ milos:
         during and after.
       learner: |
         Read the module.
+
+        Then pick one obligation from each stage — before, during and after —
+        and note who can help you meet it in your own project.
     resources:
-      - label: RDM Handbook
+      - label: TU/e RDM Handbook
+        url: https://rdm.tue.nl/
+        note: Guidance for before, during and after your research.
       - label: Netherlands Code of Conduct for Research Integrity
         url: https://www.knaw.nl/en/publications/netherlands-code-conduct-research-integrity-2027
       - label: TU/e RDM Policy
+        url: https://doi.org/10.5281/zenodo.15309046
+        note: Research Data Management Framework Policy, adopted by the Executive Board in 2025.
       - label: Publisher requirements
-        note: Resource still to be selected.
-    assessment: >
-      Formative quiz (true or false), e.g. "Does TU/e have a policy?" and "Can
-      you opt out of the requirements?"
+        note: Check the data availability policy of the journal you are targeting.
+      - label: Privacy officer (DPO)
+        note: Contact through your department or the TU/e privacy office.
+    assessment: |
+      Formative quiz (true or false), for example "Does TU/e have a data policy?" and "Can you opt out of funder requirements?".
+
+      Then write down one obligation from each stage of your project and who can help you meet it.
     notes: "CILO mapping was blank in the revised matrix and is inferred from the
-      previous version (CLO2, CLO3). The content cell is merged with M01.A in
-      the source document, so content still needs to be written for this MILO.
-      Hidden from learners (published: false) until the policy content is
-      reviewed."
+      previous version (CLO2, CLO3). Content newly written for this revision from
+      the source outline and the Data Stewardship Knowledgebase (CC BY 4.0).
+      TU/e-specific requirements still need confirmation by the curriculum team.
+      Now published."
   - id: M01.C
     statement: Review a Data Management Plan for completeness, consistency, and
       alignment with project requirements.
@@ -120,28 +158,31 @@ milos:
       - C2
       - C3
       - C4
-    content: >
-      A DMP is only useful if it is read and used. Review yours at three
-      moments: before you start, when your project changes, and when you prepare
-      to share or archive your data.
-
+    content: |
+      A DMP is only useful if it is read and used. Review yours at three moments: before you start, when your project changes, and when you prepare to share or archive your data.
 
       When you review a DMP, ask:
 
+      - **Is it complete?** Are collection, storage, documentation, sharing and preservation all addressed?
+      - **Is it consistent?** Do your storage and sharing choices match how sensitive the data is?
+      - **Does it fit the project?** Are funder, publisher and institutional requirements covered?
 
-      - **Is it complete?** Are collection, storage, documentation, sharing and
-      preservation all addressed?
+      You will also use the plan in conversations with supervisors and collaborators, and when submitting it to systems such as Hora Finita, NWO or the European Commission.
 
-      - **Is it consistent?** Do your storage and sharing choices match how
-      sensitive the data is?
+      ## Review checklist
 
-      - **Does it fit the project?** Are funder, publisher and institutional
-      requirements covered?
+      Use these questions as evidence for your review:
 
+      | Section | What to check |
+      | --- | --- |
+      | Collection and reuse | What data, from where, in which formats? Is existing data reused where possible? |
+      | Documentation | What metadata, README or codebook will make this understandable in two years? |
+      | Storage and backup | Which approved systems, who has access, and what happens if a laptop fails? |
+      | Personal and sensitive data | Is there a legal basis, ethics approval, and a plan for anonymisation or access control? |
+      | Sharing | What can be shared, under which licence, in which repository? |
+      | Preservation | How long, where, and who is responsible after the project ends? |
 
-      You will also use the plan in conversations with supervisors and
-      collaborators, and when submitting it to systems such as Hora Finita, NWO
-      or the European Commission.
+      Common red flags are "to be decided later", no named storage system, no retention period, no owner for preservation, and sharing plans that contradict how sensitive the data is.
     teaching:
       teacher: >
         A champion case of a DMP — having a DMP helped the research. (We are
@@ -158,7 +199,8 @@ milos:
       (compliant, transparent, reproducible). Use the feedback you receive to
       improve your own plan.
     notes: Migrated from the 2026-08-14 matrix (row "D. Review a DMP") and matched
-      to this revised MILO.
+      to this revised MILO. The review checklist and red flags were added for
+      this revision.
   - id: M01.D
     statement: Create a Data Management Plan covering data collection, storage,
       documentation, sharing, and preservation.
@@ -173,16 +215,21 @@ milos:
       - C3
       - C4
       - C5
-    content: >
-      A DMP records the decisions you make about your data: what you will
-      collect, where it will live, how it will be documented, who can access it,
-      how long you will keep it, and what happens to it when the project ends.
+    content: |
+      A DMP records the decisions you make about your data: what you will collect, where it will live, how it will be documented, who can access it, how long you will keep it, and what happens to it when the project ends.
 
+      You do not need to have every answer on day one. Start with the decisions you know and revisit the plan as the project develops. Research Cockpit contains the TU/e template and guidance. Data stewards can help with specifics such as licences or choosing a repository.
 
-      You do not need to have every answer on day one. Start with the decisions
-      you know and revisit the plan as the project develops. Research Cockpit
-      contains the TU/e template and guidance. Data stewards can help with
-      specifics such as licences or choosing a repository.
+      ## Questions to answer
+
+      - **Collection and reuse** — Which data will you create, and which existing data will you reuse? In which formats?
+      - **Documentation** — What will you write down so that the data and the steps that produced it are understandable later?
+      - **Storage and backup** — Where will the data live during the project, who has access, and how are backups made? A common rule of thumb is 3-2-1: three copies, on two media, one off-site.
+      - **Personal and sensitive data** — Does the project involve people? If so, what ethics approval, legal basis and access restrictions apply?
+      - **Sharing** — What can be shared, with whom, under which licence, and in which repository?
+      - **Preservation** — How long will the data be kept, where, and who is responsible after the project ends?
+
+      Mark what is still open, and bring those questions to your supervisor or data steward.
     teaching:
       teacher: >
         Video: "DMP supports the research data lifecycle".
@@ -199,10 +246,15 @@ milos:
         question it relates to, and note two topics you want to explore further.
     resources:
       - label: Research Cockpit
-        note: TU/e DMP template and instructions.
+        url: https://cockpit.research.tue.nl
+        note: TU/e DMP template and instructions. Login required.
+      - label: TU/e RDM Handbook
+        url: https://rdm.tue.nl/
+        note: Practical guidance for before, during and after your research.
     assessment: >
       Submit your DMP in Research Cockpit. The matching exercise and your
       personal reflection are formative: they help you see which topics to
       explore next.
     notes: Migrated from the 2026-08-14 matrix (row "C. Create a DMP") and matched
-      to this revised MILO.
+      to this revised MILO. The question prompts, including the 3-2-1 backup rule
+      of thumb, were added for this revision.

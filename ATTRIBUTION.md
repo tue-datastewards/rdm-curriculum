@@ -47,6 +47,20 @@ come from the TU/e Research Data Management curriculum team. The original Word
 templates are not stored in this repository. The content remains TU/e material
 and is not licensed for external reuse by this repository.
 
+## Content sources
+
+Some explanatory passages in module M01 are adapted from the **Data Stewardship
+Knowledgebase (DSK)** by Luca Visentin and contributors.
+
+- Source: <https://github.com/MrHedmad/data-stewardship-knowledgebase>
+- Licence: CC BY 4.0
+- Used for: framing of research data, research data management and the
+  researcher's responsibilities in module M01.
+
+The DSK text was paraphrased and adapted for the TU/e course and is not
+reproduced verbatim. DSK pages that only collect external course listings were
+not used as course content.
+
 ## Typeface
 
 Avenir Next is a commercial typeface by Adrian Frutiger and Akira Kobayashi,
