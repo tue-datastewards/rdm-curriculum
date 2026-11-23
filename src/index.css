@@ -21,6 +21,9 @@
   /* Extensions: a light purple wash for task blocks (not in the kit). */
   --color-wash: #f8f0f5;
   --color-wash-strong: #f1e3ec;
+  /* Extensions: feedback colours for interactive activities (not in the kit). */
+  --color-success: #1c6b3a;
+  --color-danger: #a32020;
   --font-sans: var(--rdm-font-sans);
 }
 
@@ -125,6 +128,14 @@
 .btn-primary:hover {
   border-color: var(--rdm-purple-deep);
   background: var(--rdm-purple-deep);
+}
+
+.btn:disabled,
+.btn:disabled:hover {
+  border-color: var(--rdm-rule);
+  background: var(--rdm-rule);
+  color: var(--rdm-slate);
+  cursor: not-allowed;
 }
 
 .btn-outline {

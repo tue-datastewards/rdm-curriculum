@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { Markdown } from '../components/Markdown'
+import { MatchActivity } from '../components/MatchActivity'
 import { ProgressBar } from '../components/ProgressBar'
 import { curriculum } from '../data/curriculum'
 import {
@@ -106,6 +107,8 @@ function Section({
           </div>
         </div>
       )}
+
+      {milo.activity && <MatchActivity activity={milo.activity} miloId={milo.id} />}
 
       {milo.resources.length > 0 && <Resources milo={milo} />}
 

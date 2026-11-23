@@ -59,11 +59,25 @@ If the learner fields are empty, the learner page falls back to the official tex
    - **Learner section title** and **Learner outcome statement**
    - **Content** — what the section explains; Markdown is supported
    - **Teaching → Learner's activity** — shown as “Your task”
+   - **Matching activity** — optional card game; see below
    - **Resources** — labels and, where possible, URLs
    - **Assessment** — shown as “Check your understanding”
    - **Course outcomes addressed** — tick at least one
    - **Published to learners** — only when the section is ready
 6. Press **Save**.
+
+### Matching activities
+
+A matching activity is a set of rounds. Each round shows problem cards and a
+shuffled tray of practice cards; learners match one practice to each problem.
+Add pairs under **Matching activity → Rounds**.
+
+- Keep the **problem** and **practice** cards to one short sentence.
+- Use the **explanation** for the full reasoning; it appears after checking.
+- Two to six pairs per round works best on a phone.
+- Every pair needs an explanation, and no two problems or practices in one round
+  may be identical.
+- Completing all rounds marks the section done automatically.
 
 ### What learners do not see
 
@@ -101,6 +115,7 @@ Before switching a module or section to published:
 
 - [ ] The module has a learner summary and a duration.
 - [ ] Every published section has content and a task or activity.
+- [ ] Matching activities have short cards and an explanation for every pair.
 - [ ] Resources that learners need have working URLs.
 - [ ] The learner title and statement read naturally, without internal jargon.
 - [ ] No “TBD”, “still looking for”, or notes to colleagues remain in learner text.

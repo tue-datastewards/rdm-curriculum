@@ -72,10 +72,100 @@ milos:
 
         Then write down two benefits good data management would bring to your
         own project.
+    activity:
+      title: Match the problem to the practice
+      instructions: >
+        Each problem has one practice that prevents it. Drag a practice onto a
+        problem, or tap a practice and then tap a problem. Check your answers
+        when every problem has one.
+      rounds:
+        - title: Plan and document
+          pairs:
+            - problem: Your project arrives pre-built and undocumented.
+              solution: Write an inventory and ask for a handover.
+              explanation: >
+                Before doing anything, write your own inventory: what each folder
+                contains, which files are raw or processed, and what can be
+                regenerated. Ask the predecessor or supervisor for a handover
+                session and record it. Treat undocumented inherited data as
+                unusable until you can trace it, and start documenting from your
+                first new file onward.
+            - problem: Every file is called final_v3_last_JB(1).xlsx.
+              solution: Agree one naming convention and folder structure.
+              explanation: >
+                Fix one naming convention early — datatype, date, location,
+                initials, version — and one folder structure, separating raw
+                from processed data.
+            - problem: Columns have no definitions, units or missing-value codes.
+              solution: Write a README and a data dictionary.
+              explanation: >
+                Write a README at project level plus a data dictionary for
+                tabular data: variable names, units, allowed values and
+                missing-value codes. Use a metadata standard from your field
+                where one exists, and Dublin Core as a fallback.
+            - problem: The thesis RDM paragraph is written the week before submission.
+              solution: Keep the DMP as a living document.
+              explanation: >
+                Keep the DMP as a living document from the start and update it at
+                each chapter, so the thesis statement is a summary of something
+                real rather than a retrospective guess. Many institutions
+                require a data-management statement in the dissertation, and it
+                has to describe what you actually did.
+        - title: Store and control access
+          pairs:
+            - problem: The only copy is on one laptop or an external drive.
+              solution: "Apply 3-2-1: three copies, two media, one offsite."
+              explanation: >
+                Apply 3-2-1: three copies, two media, one offsite. Check whether
+                your institutional drive is actually backed up and how restore
+                works; add an encrypted external or cloud copy if it isn't.
+                Never let the only copy of raw data live on a personal machine.
+            - problem: Only your supervisor knows where the data are.
+              solution: Agree in writing who has access.
+              explanation: >
+                Establish in writing where project data live and who has access
+                — not just who "owns" them. Ownership normally rests with the
+                institution, not the individual, so confirm access arrangements
+                before a departure, and document any arrangement for data on
+                personal or lab systems.
+            - problem: Interview recordings sit in a shared cloud folder.
+              solution: Use secure storage and anonymise offline.
+              explanation: >
+                Agree the legal basis and consent wording at the start with your
+                data protection officer or ethics committee, use institutional
+                secure storage, encrypt removable media, and anonymise on an
+                offline machine. If consent doesn't cover sharing, plan to share
+                metadata or a controlled-access version instead.
+        - title: Leave it usable
+          pairs:
+            - problem: Your contract ends and your accounts are switched off.
+              solution: Deposit the data with a DOI before you leave.
+              explanation: >
+                Deposit the finished dataset in a repository before your
+                contract ends, with a DOI, so it isn't dependent on your account.
+                Ask IT or the data steward what happens to your storage on the
+                end date, and arrange continuing access — or a supervisor-held
+                copy — in advance.
+            - problem: Only you can run the analysis code.
+              solution: Version-control the code and record how to run it.
+              explanation: >
+                Version-control your scripts, record the software and package
+                versions, and add a short "how to run this" note. Archive a
+                snapshot of the code alongside the data when you publish, so a
+                co-author or reviewer can reproduce the analysis behind a
+                figure.
+            - problem: The instrument software is the only way to open your files.
+              solution: Convert to open formats and note the software.
+              explanation: >
+                Convert to open formats for preservation (CSV/TXT, TIFF/PNG,
+                PDF/A), keep the proprietary original only where a tool needs
+                it, and note in the README what software and version produced
+                each file.
     notes: CILO codes normalized from "CLO1, CLO2, CLO5" in the source document.
       Resources and assessment are marked TBD in the source. The opening section
       was extended from the Data Stewardship Knowledgebase (CC BY 4.0) for this
-      revision; the "80% of research time" claim was deliberately softened.
+      revision; the "80% of research time" claim was deliberately softened. The
+      matching activity is built from the module's problem/solution table.
   - id: M01.B
     statement: Describe researcher responsibilities under TU/e policy, research
       integrity frameworks, requirements and funders and publishers.
