@@ -1,28 +1,49 @@
 # Licences and third-party notices
 
-This repository mixes public course material, design tokens and brand assets with
-different terms. The repository as a whole does **not** carry a single licence.
+This repository mixes course content, site code and brand assets under
+different terms. No single licence covers everything.
 
-## 1. Public use permission
+## Summary
 
-Public use of the TU/e logo and the Freepik-derived icons on this site is
-authorised by the TU/e brand owner. The written confirmation is held with the
-project records. That permission covers this site only; it does not license the
-assets for other projects or for redistribution elsewhere.
+| Material | Licence |
+| --- | --- |
+| Site code (`src/`, `scripts/`, build configuration) | MIT |
+| Course content (`data/`, site copy, documentation) | CC BY 4.0 |
+| Brand kit tokens and assets (`src/styles/rdm-tokens.css`, `public/brand/`) | CC BY-NC-SA 4.0 |
+| TU/e logo and favicon | Trademark; excluded from the open licences |
+| Freepik cover icons | Excluded; Freepik terms apply |
+| Avenir Next | Commercial; not included |
 
-## 2. Site code
+## 1. Site code — MIT
 
-The site code (React/TypeScript, scripts and configuration) was written for this
-project and is published in the public GitHub repository for the course. No open
-licence is granted for reuse outside this project.
+The site code (React/TypeScript, scripts and configuration) is licensed under
+the MIT License. The full text is in [`LICENSE`](LICENSE).
 
-## 3. Brand kit and design tokens
+Copyright (c) 2026 Eindhoven University of Technology.
+
+The MIT licence does not cover course content, brand assets, the TU/e logo,
+the Freepik-derived icons or the Avenir Next typeface.
+
+## 2. Course content and documentation — CC BY 4.0
+
+Course content in [`data/`](data), the site copy and the documentation in this
+repository are licensed under the Creative Commons Attribution 4.0
+International License. The full legal code and preferred attribution are in
+[`LICENSE-CONTENT.md`](LICENSE-CONTENT.md).
+
+This includes the internal editorial notes stored in `data/`; they are part of
+the public repository. Reuse requires attribution and an indication of changes,
+as described in the licence. The CC BY 4.0 licence does not cover the brand
+assets or third-party material listed below.
+
+## 3. Brand kit and design tokens — CC BY-NC-SA 4.0
 
 The design system is derived from the **“This is RDM” brand kit v1.0.0** by the
 TU/e Data Stewards Team.
 
 - Original kit contents (tokens, CSS, documentation, kit-created SVG/PNG assets)
   are licensed **CC BY-NC-SA 4.0**.
+- The copied tokens and assets are excluded from the MIT and CC BY 4.0 licences.
 - Attribution: see [`ATTRIBUTION.md`](ATTRIBUTION.md).
 - The full kit licence and notices are in the brand kit repository; read them
   before reusing the design system elsewhere.
@@ -33,8 +54,7 @@ derivative works. Commercial use requires permission.
 ## 4. TU/e logo
 
 The TU/e logo is a registered trademark of Eindhoven University of Technology.
-It is used on this site under the public-use permission described above and is
-**excluded** from the CC BY-NC-SA licence.
+It is excluded from the MIT, CC BY 4.0 and CC BY-NC-SA 4.0 licences.
 
 It must not be reused on other sites or in a way that implies official
 endorsement without permission from TU/e Communications.
@@ -47,11 +67,11 @@ Files affected:
 ## 5. Freepik cover icons
 
 The icon wallpaper and individual line icons were designed by Freepik
-(<https://www.freepik.com>) and are excluded from the booklet's content licence.
+(<https://www.freepik.com>) and are excluded from the MIT, CC BY 4.0 and
+CC BY-NC-SA 4.0 licences. Their use is governed by Freepik's terms.
 
-They are used on this site under the public-use permission described above and
-are **excluded** from the CC BY-NC-SA licence. They must not be extracted and
-reused in other projects without confirming the applicable Freepik licence.
+They must not be extracted and reused in other projects without confirming the
+applicable Freepik licence.
 
 Files affected:
 
@@ -64,11 +84,12 @@ Avenir Next is a commercial typeface from Linotype/Monotype. It is not included.
 The stylesheet references it by name and falls back to Avenir, Helvetica Neue,
 Arial, sans-serif. Use the exact typeface only on machines where it is licensed.
 
-## 7. Course content and source templates
+## 7. Third-party content sources
 
-The course content comes from the TU/e Research Data Management curriculum.
-The original source templates are not included in this repository. The content
-remains TU/e material and is not licensed for external reuse by this repository.
+Some explanatory passages in module M01 are adapted from the **Data Stewardship
+Knowledgebase (DSK)** by Luca Visentin and contributors, which is licensed
+CC BY 4.0. Attribution and the scope of the adaptation are recorded in
+[`ATTRIBUTION.md`](ATTRIBUTION.md).
 
 ## 8. QR code destination
 
@@ -77,7 +98,8 @@ destination before printing or distributing it.
 
 ## 9. No warranty
 
-The brand kit is an internal working resource, not an official TU/e brand
-guideline, and is provided without warranty. For official brand decisions,
-contact TU/e Communications. For research data management content, contact the
-Data Stewards Team.
+The licences above are granted to the extent permitted by law. The brand kit is
+an internal working resource, not an official TU/e brand guideline, and is
+provided without warranty. For official brand decisions, contact TU/e
+Communications. For research data management content, contact the Data Stewards
+Team.

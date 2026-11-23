@@ -6,11 +6,25 @@ staff alignment view, so what learners read and what the curriculum team reviews
 cannot drift apart.
 
 The design system is the **“This is RDM”** brand kit from the TU/e Data Stewards
-Team, used with permission. See [`ATTRIBUTION.md`](ATTRIBUTION.md) and
-[`LICENSES.md`](LICENSES.md).
+Team, used under its CC BY-NC-SA 4.0 licence. See [`ATTRIBUTION.md`](ATTRIBUTION.md)
+and [`LICENSES.md`](LICENSES.md).
 
 The repository is public. That includes the internal editorial notes in `data/`;
 see [Visibility](#visibility).
+
+## Licence
+
+| Material | Licence |
+| --- | --- |
+| Site code | [MIT](LICENSE) |
+| Course content and documentation | [CC BY 4.0](LICENSE-CONTENT.md) |
+| Brand kit tokens and assets | CC BY-NC-SA 4.0 |
+| TU/e logo, Freepik icons, Avenir Next | Separate terms; excluded from the open licences |
+
+Course content © 2026 Eindhoven University of Technology, licensed CC BY 4.0.
+Site code © 2026 Eindhoven University of Technology, licensed MIT. The brand
+assets are excluded from both licences. See [`LICENSES.md`](LICENSES.md) for the
+full scope and third-party notices.
 
 ## Views
 
@@ -136,9 +150,9 @@ the booklet QR, a filtered 10-symbol icon sprite, and a recoloured four-row
 wallpaper tile for the hero. The wallpaper is the only modified asset: its fill
 was changed from `#6E4061` to `#4A133C` for use on the purple band.
 
-Public use of the logo and icons is authorised; see
-[`ATTRIBUTION.md`](ATTRIBUTION.md). Keep the written confirmation with the
-project records. Avenir Next is commercial and not distributed; the site uses it
+Brand assets are excluded from the MIT and CC BY 4.0 licences; see
+[`LICENSES.md`](LICENSES.md) for their terms and [`ATTRIBUTION.md`](ATTRIBUTION.md)
+for attribution. Avenir Next is commercial and not distributed; the site uses it
 when installed and falls back to Avenir/Helvetica Neue/Arial.
 
 ## Editing content
@@ -207,6 +221,9 @@ The repository is public, and the published site is public. Two consequences:
 ## Project structure
 
 ```
+LICENSE                    MIT licence for the site code
+LICENSE-CONTENT.md         CC BY 4.0 licence for course content and docs
+LICENSES.md                licence scope and third-party notices
 data/                      curriculum YAML (single source of truth)
 public/brand/              vendored brand assets
 public/robots.txt          public crawler policy

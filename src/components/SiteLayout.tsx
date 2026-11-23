@@ -124,12 +124,21 @@ export function SiteLayout() {
 
           <div className="mt-10 space-y-1 border-t border-paper/25 pt-6 text-xs text-paper/70">
             <p>
-              Design system: “This is RDM” brand kit, TU/e Data Stewards Team.
-              Licensed CC BY-NC-SA 4.0.
+              Course content licensed CC BY 4.0. Site code licensed MIT. Design
+              system: “This is RDM” brand kit, TU/e Data Stewards Team, licensed
+              CC BY-NC-SA 4.0.
             </p>
             <p>
-              TU/e logo used for internal TU/e communication. Course content:
-              TU/e Research Data Management curriculum team.
+              TU/e logo used for internal TU/e communication. See{" "}
+              <a
+                href="https://github.com/tue-datastewards/rdm-curriculum/blob/main/LICENSES.md"
+                target="_blank"
+                rel="noreferrer"
+                className="underline hover:text-paper"
+              >
+                licences and attribution
+              </a>
+              .
             </p>
           </div>
         </div>
